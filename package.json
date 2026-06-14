@@ -1,0 +1,17 @@
+{
+  "name": "openbank-ng",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Complete fullstack banking and wallet platform for Nigeria.",
+  "workspaces": [
+    "apps/*",
+    "services/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build -w @openbank-ng/shared && npm run build -w @openbank-ng/api && npm run build -w @openbank-ng/customer-web && npm run build -w @openbank-ng/admin-web",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present"
+  }
+}

@@ -1,0 +1,164 @@
+# OpenBank NG Architecture
+
+## Architecture Goal
+
+OpenBank NG is a fullstack Nigerian banking and wallet platform built as a commercial source-code product. The architecture separates customer experience, admin operations, banking domain logic, provider adapters, and shared validation.
+
+## Recommended Stack
+
+- Customer app: React/Next.js PWA
+- Admin app: React/Next.js dashboard
+- API service: Node.js/NestJS or FastAPI
+- Database: PostgreSQL
+- ORM: Prisma or SQLAlchemy
+- Cache/queue: Redis-ready adapter
+- Auth: JWT sessions with refresh-token rotation
+- Money storage: integer kobo
+- Deployment: Docker-ready local and cloud setup
+
+The implementation can support equivalent stacks, but buyer-facing documentation must stay portable.
+
+## Main Domains
+
+### Identity And Access
+
+- Customer registration
+- Staff registration by admin
+- Password and PIN hashing
+- Refresh-token rotation
+- Device/session tracking
+- Role-based access control
+- Failed login and PIN lockout
+- Admin privilege separation
+
+### Customer Profile And KYC
+
+- Personal profile
+- Address
+- BVN/NIN-ready fields
+- Identity-document metadata
+- KYC tier
+- KYC status
+- Admin review trail
+- Provider verification adapter hooks
+
+### Wallet And Account
+
+- Wallet ownership
+- Account number assignment
+- Ledger account linkage
+- Available and pending balance views
+- Balance derived from ledger entries, not manually trusted totals
+
+### Ledger
+
+The ledger is the heart of the system.
+
+Rules:
+
+- Every financial event creates balanced debit/credit entries.
+- Money amounts are stored as integer kobo.
+- Ledger entries are immutable after posting.
+- Corrections use reversal entries.
+- Transaction references are unique.
+- Idempotency keys are enforced on externally triggered events.
+
+Core ledger accounts:
+
+- Customer wallet liability
+- Platform settlement asset
+- Fees revenue
+- Pending inbound settlement
+- Pending outbound settlement
+- Reversal clearing
+
+### Transactions
+
+Supported transaction types:
+
+- Internal transfer
+- Bank transfer request
+- Inbound funding
+- Withdrawal request
+- Fee charge
+- Reversal
+- Refund
+- Adjustment
+
+Statuses:
+
+- draft
+- pending
+- processing
+- requires_review
+- successful
+- failed
+- reversed
+- cancelled
+
+### Provider Adapters
+
+Provider integrations must be replaceable.
+
+Adapter categories:
+
+- Bank directory
+- Account lookup
+- Inbound funding
+- Bank transfer payout
+- KYC verification
+- SMS/email notification
+- Card/virtual account provider
+
+Initial provider targets:
+
+- Sandbox provider
+- Paystack-style funding adapter
+- Monnify-style virtual account adapter
+- Flutterwave-style payout adapter
+- Bank-sponsor/NIBSS-connected processor adapter
+
+### Admin Operations
+
+Admin users can:
+
+- Review customers
+- Approve or reject KYC
+- Monitor transactions
+- Investigate stuck transfers
+- Trigger safe reversals
+- View provider webhook events
+- Export reconciliation reports
+- Manage fees and limits
+- Handle support disputes
+- Review audit logs
+
+### Audit And Compliance
+
+Audit logs are required for:
+
+- Login events
+- Admin actions
+- KYC decisions
+- Transaction state changes
+- Ledger posting
+- Provider webhook ingestion
+- Fee/limit changes
+- Support/dispute actions
+
+## Security Baseline
+
+- No hardcoded secrets
+- Environment variables only
+- Passwords and PINs hashed
+- Sensitive identity fields encrypted or tokenized in production
+- Rate limits on auth and transaction routes
+- Idempotency on money-moving endpoints
+- Webhook signature verification
+- Input validation at API boundary
+- Strict CORS configuration for production
+- Staff role separation
+
+## Completion Definition
+
+The platform is not complete until customer app, admin app, backend API, database schema, docs, demo data, tests, and release audit all exist and pass the commercial checklist.
