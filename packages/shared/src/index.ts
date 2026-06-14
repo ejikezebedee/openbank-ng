@@ -7,6 +7,18 @@ export type KycStatus = "not_started" | "pending_review" | "approved" | "rejecte
 export type AccountStatus = "active" | "frozen" | "closed";
 export type LedgerEntryType = "debit" | "credit";
 export type TransferChannel = "internal" | "nip_mock" | "manual_review";
+export type AdminRole = "super_admin" | "operations_manager" | "compliance_officer" | "support_agent" | "auditor";
+export type AuditSeverity = "info" | "warning" | "critical";
+export type AuditEventAction =
+  | "auth.login"
+  | "auth.logout"
+  | "account.freeze"
+  | "account.unfreeze"
+  | "kyc.approve"
+  | "kyc.reject"
+  | "transfer.create"
+  | "transfer.reverse";
+export type KycReviewDecision = "approved" | "rejected" | "needs_more_info";
 
 export type TransactionStatus =
   | "draft"
@@ -117,7 +129,60 @@ export interface TransferRecord extends TransferInstruction {
   failureReason?: string;
   createdAt: string;
   completedAt?: string;
+  reversedAt?: string;
+  reversalReason?: string;
 }
+
+export interface AdminUser {
+  id: string;
+  name: string;
+  email: string;
+  role: AdminRole;
+  active: boolean;
+  createdAt: string;
+}
+
+export interface AuditEvent {
+  id: string;
+  actorId: string;
+  actorRole: AdminRole | "system" | "customer";
+  action: AuditEventAction;
+  severity: AuditSeverity;
+  entityType: string;
+  entityId: string;
+  message: string;
+  metadata?: Record<string, string | number | boolean | null>;
+  createdAt: string;
+}
+
+export interface KycReviewCase {
+  id: string;
+  customerId: string;
+  status: KycStatus;
+  submittedTier: KycTier;
+  assignedTo?: string;
+  decision?: KycReviewDecision;
+  decisionReason?: string;
+  createdAt: string;
+  decidedAt?: string;
+}
+
+export interface AccountControlRecord {
+  id: string;
+  accountId: string;
+  action: "freeze" | "unfreeze";
+  reason: string;
+  actorId: string;
+  createdAt: string;
+}
+
+export const rolePermissions: Record<AdminRole, string[]> = {
+  super_admin: ["*"],
+  operations_manager: ["accounts:write", "transfers:reverse", "audit:read", "kyc:read"],
+  compliance_officer: ["kyc:write", "kyc:read", "audit:read", "accounts:freeze"],
+  support_agent: ["customers:read", "accounts:read", "kyc:read"],
+  auditor: ["audit:read", "customers:read", "accounts:read", "transfers:read"],
+};
 
 export function isValidNigerianPhone(phone: string): boolean {
   return /^(\+234|0)[789][01]\d{8}$/.test(phone);

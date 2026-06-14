@@ -1,4 +1,4 @@
-import { AlertTriangle, BadgeCheck, Banknote, FileSearch, LockKeyhole, Users } from "lucide-react";
+import { AlertTriangle, BadgeCheck, Banknote, FileSearch, LockKeyhole, ShieldCheck, Users } from "lucide-react";
 import { formatKobo } from "@openbank-ng/shared";
 
 const queues = [
@@ -12,6 +12,12 @@ const transfers = [
   { ref: "OBNG2026061401", customer: "Adaeze Okafor", amountKobo: 4500000, status: "Successful" },
   { ref: "OBNG2026061402", customer: "Musa Abdullahi", amountKobo: 150000000, status: "Review" },
   { ref: "OBNG2026061403", customer: "Chika Nwosu", amountKobo: 800000, status: "Successful" },
+];
+
+const auditEvents = [
+  "KYC approved for Adaeze Okafor",
+  "Account freeze control ready",
+  "Transfer reversal workflow enabled",
 ];
 
 export default function AdminHome() {
@@ -71,6 +77,30 @@ export default function AdminHome() {
           <h2>Risk gate</h2>
           <p>Large transfers, frozen accounts, failed identity checks, and repeated idempotency conflicts route here before release.</p>
           <button>Open review queue</button>
+        </div>
+      </section>
+
+      <section className="governanceGrid">
+        <div className="panel">
+          <div className="panelHead">
+            <h2>KYC command lane</h2>
+            <ShieldCheck size={22} />
+          </div>
+          <p className="muted">Compliance officers can approve, reject, or request more information for BVN/NIN-ready customer profiles.</p>
+          <div className="controlRow">
+            <span>Review case</span>
+            <strong>kyc_001</strong>
+            <span className="pill">Approved</span>
+          </div>
+        </div>
+
+        <div className="panel">
+          <h2>Audit trail</h2>
+          <div className="auditList">
+            {auditEvents.map((event) => (
+              <span key={event}>{event}</span>
+            ))}
+          </div>
         </div>
       </section>
     </main>

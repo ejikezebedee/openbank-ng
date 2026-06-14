@@ -1,10 +1,23 @@
-import type { BankAccount, CustomerProfile, LedgerEntry, TransferRecord } from "@openbank-ng/shared";
+import type {
+  AccountControlRecord,
+  AdminUser,
+  AuditEvent,
+  BankAccount,
+  CustomerProfile,
+  KycReviewCase,
+  LedgerEntry,
+  TransferRecord,
+} from "@openbank-ng/shared";
 
 export interface OpenBankStore {
   customers: CustomerProfile[];
   accounts: BankAccount[];
   ledgerEntries: LedgerEntry[];
   transfers: TransferRecord[];
+  adminUsers: AdminUser[];
+  auditEvents: AuditEvent[];
+  kycReviewCases: KycReviewCase[];
+  accountControls: AccountControlRecord[];
   idempotencyKeys: Map<string, string>;
 }
 
@@ -51,5 +64,50 @@ export const store: OpenBankStore = {
     },
   ],
   transfers: [],
+  adminUsers: [
+    {
+      id: "adm_001",
+      name: "Operations Manager",
+      email: "ops@openbankng.example",
+      role: "operations_manager",
+      active: true,
+      createdAt: now,
+    },
+    {
+      id: "adm_002",
+      name: "Compliance Officer",
+      email: "compliance@openbankng.example",
+      role: "compliance_officer",
+      active: true,
+      createdAt: now,
+    },
+  ],
+  auditEvents: [
+    {
+      id: "aud_001",
+      actorId: "system",
+      actorRole: "system",
+      action: "transfer.create",
+      severity: "info",
+      entityType: "account",
+      entityId: "acct_001",
+      message: "Seed account and opening ledger entry created.",
+      createdAt: now,
+    },
+  ],
+  kycReviewCases: [
+    {
+      id: "kyc_001",
+      customerId: "cus_001",
+      status: "approved",
+      submittedTier: "tier_2",
+      assignedTo: "adm_002",
+      decision: "approved",
+      decisionReason: "Seed customer approved for sandbox banking workflow.",
+      createdAt: now,
+      decidedAt: now,
+    },
+  ],
+  accountControls: [],
   idempotencyKeys: new Map(),
 };
