@@ -3,6 +3,7 @@
 ## Root
 
 - `README.md` - Product overview and documentation index.
+- `LICENSE` - Proprietary commercial source license notice.
 - `CHANGELOG.md` - Release history.
 - `SECURITY.md` - Security policy and production warnings.
 - `.env.example` - Portable local environment template.
@@ -39,6 +40,7 @@
 - `docs/TROUBLESHOOTING.md`
 - `docs/BUYER_HANDOFF.md`
 - `docs/DEMO_VIDEO_SCRIPT.md`
+- `docs/PAYSTACK_DIFFERENTIATION.md`
 - `docs/LICENSE_TERMS_DRAFT.md`
 - `docs/RELEASE_NOTES.md`
 - `docs/GITHUB_DELIVERY.md`
@@ -56,6 +58,7 @@
 - `docs/PHASE-009-BUYER-FULFILLMENT.md`
 - `docs/PHASE-010-COMMERCIAL-DECISION-GATE.md`
 - `docs/PHASE-011-PRODUCT-IMAGE-ASSET.md`
+- `docs/PHASE-012-BUYER-DEAL-ROOM.md`
 
 ## Sales And Release
 
@@ -63,6 +66,7 @@
 - `sales/GUMROAD_LISTING.md`
 - `sales/BUYER_FAQ.md`
 - `sales/LAUNCH_ASSETS.md`
+- `sales/DEAL_ROOM.md`
 - `sales/POST_PURCHASE_EMAILS.md`
 - `sales/SUPPORT_POLICY_DRAFT.md`
 - `sales/PRICING_PACKAGES.md`

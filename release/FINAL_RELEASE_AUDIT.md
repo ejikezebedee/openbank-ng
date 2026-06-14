@@ -14,6 +14,15 @@ Status: buyer-review ready, pending MD approval for public sale or repository vi
 - Commercial cleanup scan: passed.
 - Git status after Phase 7 push: must be clean.
 
+## 2026-06-14 Commercial Differentiation Addendum
+
+- Added proprietary root `LICENSE` notice for controlled public/private code evaluation.
+- Added `docs/PAYSTACK_DIFFERENTIATION.md` to explain why buyers choose OpenBank NG instead of only using Paystack.
+- Added `sales/DEAL_ROOM.md` to define discovery, buyer qualification, code-review access, and deal-request flow.
+- Updated sales, FAQ, pricing, support, GitHub delivery, buyer access, commercial decision, and package manifest files to reflect the EUR 5,000 / EUR 10,000 / EUR 20,000 tier structure.
+- Re-ran automated tests after the commercial documentation update: passed.
+- Re-ran buyer-facing cleanup scan for old low prices and internal workspace references: passed.
+
 ## Commercial Cleanup
 
 Checked:
@@ -46,6 +55,7 @@ Included:
 - Gumroad listing copy.
 - Buyer FAQ.
 - Launch assets.
+- Deal room.
 - Marketplace launch checklist.
 - Buyer fulfillment checklist.
 - Post-purchase email templates.
@@ -55,6 +65,8 @@ Included:
 - Commercial decision record.
 - Buyer access SOP.
 - Marketplace product cover image.
+- Paystack differentiation brief.
+- Root proprietary commercial source license notice.
 
 ## Remaining Approval Items
 

@@ -33,9 +33,10 @@ Included buyer support does not cover:
 
 ## Suggested Support Window
 
-- Launch package: 7 days of setup clarification.
-- Pro package: 14 days of setup clarification.
-- Customization support: separate paid agreement.
+- Tier 1 - Builder License: 7 days of setup clarification.
+- Tier 2 - Commercial Launch License: 14 days of setup clarification.
+- Tier 3 - Enterprise / Investor-Grade Package: 30 days of setup clarification.
+- Custom implementation: separate paid agreement.
 
 ## Response Target
 
@@ -69,4 +70,3 @@ Move the request to paid customization when the buyer asks for:
 ## Approval Gate
 
 This policy is a draft until MD approves final support scope, duration, price, and refund terms.
-

@@ -112,7 +112,7 @@
 - Commercial terms draft is documented for approval.
 - Commercial decision record is present.
 - Buyer access SOP is present.
-- Recommended defaults are documented: $299 launch package, $499 pro package, $1,000+ customization, single-project commercial source-code license, private GitHub delivery, setup clarification support, and limited digital-product refund policy.
+- Recommended defaults are documented: EUR 5,000 Builder License, EUR 10,000 Commercial Launch License, EUR 20,000 Enterprise / Investor-Grade Package, single-project commercial source-code license, private GitHub delivery, setup clarification support, and limited digital-product refund policy.
 - Public sale and buyer access remain blocked until MD approval is recorded.
 
 ## Phase 11 Product Image Asset Notes
@@ -122,3 +122,12 @@
 - Gumroad listing references the product image.
 - Launch assets identify the image as the primary marketplace/GitHub/sales-page image.
 - Image avoids bank logos, official seals, direct payment-rail claims, and regulated-approval claims.
+
+## Phase 12 Buyer Deal Room Notes
+
+- Root proprietary commercial source license notice is present.
+- Paystack differentiation brief is present.
+- Buyer deal-room flow is present.
+- Buyer-facing pricing is aligned to EUR 5,000 / EUR 10,000 / EUR 20,000.
+- Code-review access is positioned as controlled evaluation only until license and payment are accepted.
+- Public sale, repository visibility, and buyer access remain gated by MD approval per deal.

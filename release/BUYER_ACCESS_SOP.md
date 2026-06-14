@@ -12,16 +12,17 @@ Fallback method: packaged source archive through an approved marketplace or secu
 
 ## Access Steps
 
-1. Confirm buyer payment.
-2. Confirm buyer identity or company.
-3. Confirm purchased package/tier.
-4. Confirm license terms accepted.
-5. Confirm refund policy accepted.
-6. Confirm support scope accepted.
-7. Send buyer access email from `sales/POST_PURCHASE_EMAILS.md`.
-8. Grant private repository access or deliver approved package archive.
-9. Record delivery in `release/BUYER_FULFILLMENT_CHECKLIST.md`.
-10. Ask buyer to complete first-run verification.
+1. Confirm buyer identity or company.
+2. Confirm buyer use case and intended deployment.
+3. Confirm whether access is evaluation-only or post-payment delivery.
+4. Confirm purchased package/tier if payment has already occurred.
+5. Confirm license terms accepted.
+6. Confirm refund policy accepted.
+7. Confirm support scope accepted.
+8. Send buyer access email from `sales/POST_PURCHASE_EMAILS.md`.
+9. Grant private repository access or deliver approved package archive.
+10. Record delivery in `release/BUYER_FULFILLMENT_CHECKLIST.md`.
+11. Ask buyer to complete first-run verification.
 
 ## GitHub Access Controls
 
@@ -29,6 +30,8 @@ Fallback method: packaged source archive through an approved marketplace or secu
 - Prefer read-only collaborator access where available.
 - Remove access if payment is reversed, license is breached, or access was granted in error.
 - Do not make the repository public unless MD approves public visibility.
+- For pre-sale evaluation, make clear that access is inspection-only and does
+  not grant copying, redistribution, production deployment, or commercial use.
 
 ## Archive Delivery Controls
 
@@ -58,4 +61,3 @@ Stop access or escalation if:
 - Buyer asks to remove compliance or security warnings.
 - Buyer requests resale of the original source-code package.
 - Buyer requests production launch claims that the package does not support.
-

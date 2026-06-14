@@ -2,16 +2,19 @@
 
 ## Status
 
-Approval-ready. No public sale or buyer access is authorized until MD approves the final decisions below.
+Pricing approved by MD for premium buyer qualification. Public sale, buyer
+access, and repository visibility still require the remaining operational
+approvals below.
 
 ## Recommended Decisions
 
 | Decision Area | Recommended Value | Approval Status |
 | --- | --- | --- |
 | Base license | Single-project commercial source-code license | Pending MD approval |
-| Launch package | $299 | Pending MD approval |
-| Pro source package | $499 | Pending MD approval |
-| Customization support | $1,000+ by separate agreement | Pending MD approval |
+| Tier 1 - Builder License | EUR 5,000 | MD approved |
+| Tier 2 - Commercial Launch License | EUR 10,000 | MD approved |
+| Tier 3 - Enterprise / Investor-Grade Package | EUR 20,000 | MD approved |
+| Custom implementation | Separate agreement after purchase | Pending MD approval per deal |
 | Refund policy | Limited digital-product refund policy | Pending MD approval |
 | Included support | Setup clarification only | Pending MD approval |
 | Delivery method | Private GitHub access | Pending MD approval |
@@ -26,8 +29,9 @@ Record final MD approval here before public sale:
 - Approved by:
 - Approval date:
 - Final license:
-- Final launch price:
-- Final pro price:
+- Final Tier 1 price:
+- Final Tier 2 price:
+- Final Tier 3 price:
 - Final support scope:
 - Final refund policy:
 - Final delivery method:
@@ -37,4 +41,3 @@ Record final MD approval here before public sale:
 ## Operational Rule
 
 If any decision remains pending, do not publish the product, invite buyers, grant access, or represent the package as approved for public sale.
-

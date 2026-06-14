@@ -16,6 +16,21 @@ Most fintech templates are only beautiful screens. Real fintech products need le
 
 OpenBank NG gives you a complete source-code foundation for building Nigerian wallet, neobank, cooperative finance, agency banking, and payment products.
 
+## Why Not Just Use Paystack?
+
+Use Paystack if you only need a simple payment link, checkout page, or hosted
+merchant payment account.
+
+Choose OpenBank NG if you want to own and customize a fintech infrastructure
+foundation: customer app, admin dashboard, backend API, wallet/account workflow,
+ledger boundaries, provider adapter layer, KYC workflow structure,
+reconciliation thinking, audit boundaries, and buyer documentation.
+
+Paystack sells payment processing as a service. OpenBank NG sells source-code
+ownership of the operating foundation that can connect approved providers such
+as Paystack, Monnify, Flutterwave, Interswitch, bank sponsors, and sandbox
+rails.
+
 ## What Buyers Receive
 
 - Customer banking app
@@ -53,15 +68,15 @@ OpenBank NG gives you a complete source-code foundation for building Nigerian wa
 
 OpenBank NG is software source code only. Buyers are responsible for regulatory approval, licensing, banking/payment partners, KYC/AML provider setup, production security review, and live payment rail authorization.
 
-## Pricing Rationale
+## Pricing
 
-Suggested pricing:
+- Tier 1 - Builder License: EUR 5,000.
+- Tier 2 - Commercial Launch License: EUR 10,000.
+- Tier 3 - Enterprise / Investor-Grade Package: EUR 20,000.
 
-- Launch: $299
-- Pro source package: $499
-- Commercial customization support: $1,000+
-
-The value is time saved. A buyer gets a serious fintech foundation that could otherwise require months of planning and development.
+The value is ownership and time saved. A buyer gets a serious fintech
+foundation that could otherwise require months of product architecture,
+engineering, documentation, and operating-design work.
 
 ## Buyer Outcome
 
@@ -72,6 +87,10 @@ The buyer receives a working fullstack foundation they can run locally, evaluate
 - It includes backend banking workflows, not only screens.
 - It includes admin operations and risk review, not only customer UI.
 - It includes ledger, audit, KYC, transfer, and notification boundaries.
+- It is designed for multi-provider orchestration instead of dependence on one
+  hosted processor.
+- It can support investor demos, agency delivery, and private-label product
+  planning after commercial licensing.
 - It includes buyer documentation for setup, deployment, API usage, troubleshooting, and handoff.
 - It states the compliance boundary clearly so buyers understand their responsibilities.
 

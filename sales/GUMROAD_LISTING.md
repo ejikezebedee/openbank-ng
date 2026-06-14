@@ -96,11 +96,24 @@ OpenBank NG must not be marketed as a licensed bank, regulated financial institu
 
 ## Suggested Pricing
 
-- Launch price: $299.
-- Pro source package: $499.
-- Commercial customization support: $1,000+.
+- Tier 1 - Builder License: EUR 5,000.
+- Tier 2 - Commercial Launch License: EUR 10,000.
+- Tier 3 - Enterprise / Investor-Grade Package: EUR 20,000.
 
-The pricing is justified by the time saved on product architecture, workflow design, app scaffolding, API structure, Nigerian banking assumptions, and buyer documentation.
+The pricing is justified by source-code ownership, time saved on product
+architecture, workflow design, app scaffolding, API structure, Nigerian banking
+assumptions, provider adapter design, buyer documentation, and commercial
+handoff material.
+
+## Why Buyers Choose This Instead Of Paystack
+
+Paystack is useful when the buyer only needs hosted payment acceptance. OpenBank
+NG is for buyers who want to own and customize a fintech infrastructure
+foundation.
+
+The package gives buyers app surfaces, backend workflow boundaries, provider
+adapter architecture, KYC workflow structure, ledger boundaries, audit controls,
+and documentation they can adapt into their own approved product.
 
 ## Suggested Gumroad Description
 

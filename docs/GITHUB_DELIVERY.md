@@ -14,7 +14,9 @@ main
 
 ## Delivery Status
 
-OpenBank NG is private and ready for buyer evaluation after Phase 7. Public release or marketplace sale still requires MD approval.
+OpenBank NG is private and ready for controlled buyer evaluation. Public
+repository visibility, marketplace sale, or broad source-code access still
+requires MD approval.
 
 ## Required GitHub Settings Before Public Release
 
@@ -36,11 +38,19 @@ OpenBank NG is private and ready for buyer evaluation after Phase 7. Public rele
 
 ## Buyer Review Flow
 
-1. Share repository access with the approved buyer or reviewer only.
-2. Direct them to `README.md`.
-3. Direct technical reviewers to `docs/SETUP_GUIDE.md` and `docs/API_REFERENCE.md`.
-4. Direct commercial reviewers to `sales/SALES_PAGE_COPY.md` and `docs/BUYER_HANDOFF.md`.
-5. Direct security reviewers to `SECURITY.md`, `docs/DEPLOYMENT_GUIDE.md`, and `release/FINAL_RELEASE_AUDIT.md`.
+1. Qualify the buyer by company, use case, budget, and intended deployment.
+2. Confirm they understand OpenBank NG is source-code software only, not a
+   licensed payment operator.
+3. Share repository access with the approved buyer or reviewer only.
+4. Direct them to `README.md`.
+5. Direct technical reviewers to `docs/SETUP_GUIDE.md` and `docs/API_REFERENCE.md`.
+6. Direct commercial reviewers to `sales/SALES_PAGE_COPY.md`,
+   `docs/PAYSTACK_DIFFERENTIATION.md`, `sales/DEAL_ROOM.md`, and
+   `docs/BUYER_HANDOFF.md`.
+7. Direct security reviewers to `SECURITY.md`, `docs/DEPLOYMENT_GUIDE.md`, and
+   `release/FINAL_RELEASE_AUDIT.md`.
+8. Remove evaluation access if the buyer does not proceed or breaches review
+   terms.
 
 ## Release Tag Plan
 

@@ -2,13 +2,14 @@
 
 ## Status
 
-Approval-ready pricing recommendation. Final prices require MD approval before public sale.
+MD-approved commercial price structure for premium buyer qualification.
 
 ## Recommended Package Tiers
 
-### Launch Package - $299
+### Tier 1 - Builder License: EUR 5,000
 
-For founders, developers, and small teams evaluating the source-code foundation.
+For founders and developer teams that want the full source package for one
+approved product.
 
 Includes:
 
@@ -19,6 +20,9 @@ Includes:
 - Shared banking package.
 - Database schema.
 - Setup, API, deployment, troubleshooting, security, handoff, and release docs.
+- Provider adapter architecture.
+- Ledger, reconciliation, audit, and transaction workflow boundaries.
+- Basic compliance templates and commercial documentation.
 - 7 days of setup clarification support.
 
 Does not include:
@@ -28,54 +32,67 @@ Does not include:
 - Production deployment.
 - Legal/compliance review.
 - Production security certification.
+- Resale or marketplace redistribution rights.
 
-### Pro Source Package - $499
+### Tier 2 - Commercial Launch License: EUR 10,000
 
-For agencies and operators who need stronger handoff support.
+For buyers who want a stronger launch handoff for one approved internal product
+or one approved client product.
 
 Includes:
 
-- Everything in Launch Package.
+- Everything in Tier 1.
 - Buyer fulfillment checklist.
 - Post-purchase email templates.
 - Launch assets.
 - Buyer FAQ.
+- Deal-room support material.
+- Commercial launch checklist.
+- Architecture walkthrough session.
 - 14 days of setup clarification support.
 
 Does not include:
 
 - Resale rights for the original source package.
-- Unlimited client delivery rights unless approved in the final license.
+- Unlimited client delivery rights unless approved in writing.
 - Production provider setup or compliance approval.
 
-### Commercial Customization - $1,000+
+### Tier 3 - Enterprise / Investor-Grade Package: EUR 20,000
 
-For buyers who need implementation help beyond the package.
+For serious operators, agencies, investor-backed teams, or strategic buyers that
+need deeper handoff, private-label readiness, and stronger commercial support.
 
-Possible scope:
+Includes:
 
-- Branding.
-- Provider integration planning.
-- Database repository implementation.
-- Deployment preparation.
-- Admin workflow extension.
-- Compliance workflow customization.
-- Security hardening planning.
+- Everything in Tier 2.
+- Priority architecture walkthrough.
+- Private-label implementation planning.
+- Provider integration roadmap.
+- Deployment readiness review.
+- Investor/demo positioning pack.
+- 30 days of setup clarification support.
+- Optional paid custom implementation proposal after handoff.
 
-Custom work requires a separate agreement, scope, payment, timeline, and MD approval.
+Custom implementation still requires a separate agreement, scope, payment,
+timeline, and MD approval.
 
 ## Pricing Justification
 
-OpenBank NG saves buyer time by packaging product architecture, customer/admin surfaces, banking workflow boundaries, Nigerian money and KYC assumptions, API structure, release documentation, sales materials, and fulfillment materials in one commercial source-code package.
+OpenBank NG is priced as a premium source-code infrastructure asset, not a small
+template. The buyer receives a Nigerian fintech foundation with customer/admin
+surfaces, backend API, wallet/account workflow, ledger boundaries, provider
+adapter architecture, KYC workflow structure, documentation, commercial handoff
+material, and buyer-ready release packaging.
+
+The value is speed, ownership, and avoided months of architecture work.
 
 ## Price Approval Gate
 
-Do not publish the prices publicly until MD approves:
+Before each sale, confirm:
 
-- Final package names.
-- Final price points.
 - Discount rules.
 - Launch-period pricing.
 - Support duration per package.
 - Whether agency/client usage is included or reserved for a higher tier.
-
+- Buyer accepts that OpenBank NG is source-code software only, not a licensed
+  payment operator.
