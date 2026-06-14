@@ -11,6 +11,7 @@
 - [x] FAQ included
 - [ ] License terms selected
 - [x] Buyer compliance notice included
+- [x] License terms draft included
 
 ## Product Completeness
 
@@ -65,6 +66,11 @@
 - [x] Tests or verification notes included
 - [x] Release notes included
 - [x] GitHub-ready locally
+- [x] Changelog included
+- [x] Security policy included
+- [x] Package manifest included
+- [x] Final release audit included
+- [x] GitHub delivery guide included
 
 ## Phase 6 Release Audit Notes
 
@@ -72,3 +78,13 @@
 - Documentation uses portable relative paths.
 - Buyer compliance and production-security responsibilities are stated.
 - Final public release remains gated by Phase 7 delivery polish and MD approval.
+
+## Phase 7 Release Audit Notes
+
+- GitHub delivery guide is present.
+- Changelog is present.
+- Security policy is present.
+- Package manifest is present.
+- Final release audit is present.
+- Repository remains private unless MD approves a visibility change.
+- Public release remains gated by final license, pricing, support, and buyer-access approval.
