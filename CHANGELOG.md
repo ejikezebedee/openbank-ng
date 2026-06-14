@@ -16,6 +16,7 @@
 - Marketplace launch package: Gumroad listing, buyer FAQ, launch assets, marketplace checklist, and Phase 8 marketplace launch report.
 - Buyer fulfillment package: access checklist, post-purchase email templates, support policy draft, and Phase 9 buyer fulfillment report.
 - Commercial decision-gate package: pricing tiers, commercial terms draft, decision record, buyer access SOP, and Phase 10 commercial decision report.
+- Product image asset package: marketplace cover image, launch asset update, Gumroad image reference, package manifest update, and Phase 11 product image report.
 
 ### Verification
 

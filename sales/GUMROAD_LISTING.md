@@ -4,6 +4,10 @@
 
 OpenBank NG - Fullstack Nigerian Banking & Wallet Platform
 
+## Product Image
+
+Use `assets/marketplace/openbank-ng-product-cover.png` as the primary product-gallery image.
+
 ## Short Subtitle
 
 Customer app, admin dashboard, backend API, ledger workflows, KYC-ready fields, transfer controls, and buyer documentation for Nigerian fintech builds.
@@ -111,4 +115,3 @@ Use it as a serious foundation for Nigerian fintech products. Connect your own l
 Because this is a digital source-code package, refunds should be limited to duplicate purchases, broken downloads that cannot be resolved, or a clearly incorrect file delivery. Refunds should not cover buyer misunderstanding of licensing, regulated provider requirements, or production readiness obligations when those terms are stated on the product page.
 
 Final refund terms require MD approval before public sale.
-

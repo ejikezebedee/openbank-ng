@@ -13,6 +13,10 @@
 - `apps/customer-web/` - Customer banking interface.
 - `apps/admin-web/` - Admin operations console.
 
+## Marketplace Assets
+
+- `assets/marketplace/openbank-ng-product-cover.png` - Primary product cover image for marketplace, GitHub, and sales-page use.
+
 ## API And Shared Code
 
 - `services/api/` - Backend API and banking domain services.
@@ -51,6 +55,7 @@
 - `docs/PHASE-008-MARKETPLACE-LAUNCH.md`
 - `docs/PHASE-009-BUYER-FULFILLMENT.md`
 - `docs/PHASE-010-COMMERCIAL-DECISION-GATE.md`
+- `docs/PHASE-011-PRODUCT-IMAGE-ASSET.md`
 
 ## Sales And Release
 

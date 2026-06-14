@@ -114,3 +114,11 @@
 - Buyer access SOP is present.
 - Recommended defaults are documented: $299 launch package, $499 pro package, $1,000+ customization, single-project commercial source-code license, private GitHub delivery, setup clarification support, and limited digital-product refund policy.
 - Public sale and buyer access remain blocked until MD approval is recorded.
+
+## Phase 11 Product Image Asset Notes
+
+- Marketplace product cover image is present at `assets/marketplace/openbank-ng-product-cover.png`.
+- README displays the product image.
+- Gumroad listing references the product image.
+- Launch assets identify the image as the primary marketplace/GitHub/sales-page image.
+- Image avoids bank logos, official seals, direct payment-rail claims, and regulated-approval claims.

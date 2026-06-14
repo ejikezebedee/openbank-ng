@@ -53,6 +53,12 @@ Use short overlay text only:
 - "Customer App + Admin + API"
 - "Ledger, KYC, Transfers, Docs"
 
+## Product Cover Image
+
+Use `assets/marketplace/openbank-ng-product-cover.png` as the primary Gumroad product-gallery image, GitHub preview image, launch post image, and sales-page hero image.
+
+The image is buyer-safe and avoids bank logos, official seals, direct payment-rail claims, and regulated-approval claims.
+
 ## Pre-Publish Checklist
 
 - Final product price approved.
@@ -65,4 +71,3 @@ Use short overlay text only:
 - Screenshots or demo media attached.
 - Compliance notice visible above purchase button.
 - Download file or GitHub access instructions tested.
-

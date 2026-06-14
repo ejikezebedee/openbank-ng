@@ -54,6 +54,7 @@ Included:
 - Commercial terms draft.
 - Commercial decision record.
 - Buyer access SOP.
+- Marketplace product cover image.
 
 ## Remaining Approval Items
 
@@ -76,4 +77,4 @@ OpenBank NG is a source-code platform. It must not be represented as a licensed 
 
 ## Audit Result
 
-Phase 10 release audit result: passed for private GitHub buyer evaluation, marketplace listing review, controlled buyer-fulfillment planning, and commercial decision review. Public sale and buyer access remain gated by MD approval.
+Phase 11 release audit result: passed for private GitHub buyer evaluation, marketplace listing review, controlled buyer-fulfillment planning, commercial decision review, and product-image readiness. Public sale and buyer access remain gated by MD approval.

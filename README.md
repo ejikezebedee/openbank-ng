@@ -47,6 +47,10 @@ release/
   Commercial release checklist and audit notes
 ```
 
+## Product Image
+
+![OpenBank NG product cover](./assets/marketplace/openbank-ng-product-cover.png)
+
 ## Nigerian Banking Orientation
 
 OpenBank NG is structured around Nigerian fintech requirements:
@@ -86,6 +90,7 @@ See:
 - [Phase 8 Marketplace Launch](./docs/PHASE-008-MARKETPLACE-LAUNCH.md)
 - [Phase 9 Buyer Fulfillment](./docs/PHASE-009-BUYER-FULFILLMENT.md)
 - [Phase 10 Commercial Decision Gate](./docs/PHASE-010-COMMERCIAL-DECISION-GATE.md)
+- [Phase 11 Product Image Asset](./docs/PHASE-011-PRODUCT-IMAGE-ASSET.md)
 - [Setup Guide](./docs/SETUP_GUIDE.md)
 - [Deployment Guide](./docs/DEPLOYMENT_GUIDE.md)
 - [API Reference](./docs/API_REFERENCE.md)
