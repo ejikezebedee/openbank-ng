@@ -7,6 +7,7 @@ export type KycStatus = "not_started" | "pending_review" | "approved" | "rejecte
 export type AccountStatus = "active" | "frozen" | "closed";
 export type LedgerEntryType = "debit" | "credit";
 export type TransferChannel = "internal" | "nip_mock" | "manual_review";
+export type BeneficiaryStatus = "active" | "disabled";
 export type AdminRole = "super_admin" | "operations_manager" | "compliance_officer" | "support_agent" | "auditor";
 export type AuditSeverity = "info" | "warning" | "critical";
 export type AuditEventAction =
@@ -16,6 +17,8 @@ export type AuditEventAction =
   | "account.unfreeze"
   | "kyc.approve"
   | "kyc.reject"
+  | "beneficiary.create"
+  | "beneficiary.disable"
   | "transfer.create"
   | "transfer.reverse";
 export type KycReviewDecision = "approved" | "rejected" | "needs_more_info";
@@ -88,6 +91,15 @@ export interface CustomerProfile {
   createdAt: string;
 }
 
+export interface CustomerUser {
+  id: string;
+  customerId: string;
+  email: string;
+  phone: string;
+  active: boolean;
+  createdAt: string;
+}
+
 export interface BankAccount {
   id: string;
   customerId: string;
@@ -131,6 +143,32 @@ export interface TransferRecord extends TransferInstruction {
   completedAt?: string;
   reversedAt?: string;
   reversalReason?: string;
+}
+
+export interface Beneficiary {
+  id: string;
+  customerId: string;
+  name: string;
+  accountNumber: string;
+  bankCode: string;
+  bankName: string;
+  status: BeneficiaryStatus;
+  createdAt: string;
+}
+
+export interface AccountStatement {
+  accountId: string;
+  accountNumber: string;
+  accountName: string;
+  currency: typeof DEFAULT_CURRENCY;
+  openingBalanceKobo: number;
+  closingBalanceKobo: number;
+  totalDebitsKobo: number;
+  totalCreditsKobo: number;
+  from: string;
+  to: string;
+  entries: LedgerEntry[];
+  generatedAt: string;
 }
 
 export interface AdminUser {

@@ -9,12 +9,17 @@ import { store } from "../data/store.js";
 import { appendAuditEvent } from "./audit.js";
 import { getAccount, postCredit, postDebit } from "./ledger.js";
 import { requirePermission } from "./rbac.js";
+import { inMemoryUnitOfWork } from "../repositories/memoryRepositories.js";
 
 function makeReference(): string {
   return `OBNG${Date.now()}${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
 }
 
 export function createTransfer(instruction: TransferInstruction): TransferRecord {
+  return inMemoryUnitOfWork.transaction("create_transfer", () => createTransferInsideTransaction(instruction));
+}
+
+function createTransferInsideTransaction(instruction: TransferInstruction): TransferRecord {
   const existingTransferId = store.idempotencyKeys.get(instruction.idempotencyKey);
   const existingTransfer = existingTransferId
     ? store.transfers.find((transfer) => transfer.id === existingTransferId)
@@ -76,6 +81,10 @@ export function createTransfer(instruction: TransferInstruction): TransferRecord
 }
 
 export function reverseTransfer(transferId: string, reason: string, actorId: string): TransferRecord {
+  return inMemoryUnitOfWork.transaction("reverse_transfer", () => reverseTransferInsideTransaction(transferId, reason, actorId));
+}
+
+function reverseTransferInsideTransaction(transferId: string, reason: string, actorId: string): TransferRecord {
   const actor = requirePermission(actorId, "transfers:reverse");
   const transfer = store.transfers.find((entry) => entry.id === transferId);
 

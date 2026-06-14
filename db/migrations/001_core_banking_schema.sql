@@ -36,6 +36,28 @@ CREATE TABLE admin_users (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+CREATE TABLE customer_users (
+  id TEXT PRIMARY KEY,
+  customer_id TEXT NOT NULL REFERENCES customers(id),
+  email TEXT NOT NULL UNIQUE,
+  phone TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  active BOOLEAN NOT NULL DEFAULT true,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE beneficiaries (
+  id TEXT PRIMARY KEY,
+  customer_id TEXT NOT NULL REFERENCES customers(id),
+  name TEXT NOT NULL,
+  account_number TEXT NOT NULL,
+  bank_code TEXT NOT NULL,
+  bank_name TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'active',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE(customer_id, account_number, bank_code)
+);
+
 CREATE TABLE ledger_entries (
   id TEXT PRIMARY KEY,
   transaction_id TEXT NOT NULL,

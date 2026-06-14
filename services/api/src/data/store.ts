@@ -3,7 +3,9 @@ import type {
   AdminUser,
   AuditEvent,
   BankAccount,
+  Beneficiary,
   CustomerProfile,
+  CustomerUser,
   KycReviewCase,
   LedgerEntry,
   TransferRecord,
@@ -11,7 +13,9 @@ import type {
 
 export interface OpenBankStore {
   customers: CustomerProfile[];
+  customerUsers: CustomerUser[];
   accounts: BankAccount[];
+  beneficiaries: Beneficiary[];
   ledgerEntries: LedgerEntry[];
   transfers: TransferRecord[];
   adminUsers: AdminUser[];
@@ -47,6 +51,28 @@ export const store: OpenBankStore = {
       currency: "NGN",
       balanceKobo: 2_450_000_00,
       availableBalanceKobo: 2_450_000_00,
+      status: "active",
+      createdAt: now,
+    },
+  ],
+  customerUsers: [
+    {
+      id: "cu_001",
+      customerId: "cus_001",
+      email: "adaeze@example.com",
+      phone: "+2348012345678",
+      active: true,
+      createdAt: now,
+    },
+  ],
+  beneficiaries: [
+    {
+      id: "ben_001",
+      customerId: "cus_001",
+      name: "Chinedu Okeke",
+      accountNumber: "0123456789",
+      bankCode: "000027",
+      bankName: "Standard Chartered Bank Nigeria",
       status: "active",
       createdAt: now,
     },

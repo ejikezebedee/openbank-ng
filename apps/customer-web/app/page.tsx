@@ -22,6 +22,11 @@ const transactions = [
   { title: "Airtime top up", time: "Yesterday, 13:20", amountKobo: -500000, status: "Successful" },
 ];
 
+const beneficiaries = [
+  { name: "Chinedu Okeke", bank: "Standard Chartered Bank Nigeria", account: "0123456789" },
+  { name: "Musa Abdullahi", bank: "Access Bank", account: "2020202020" },
+];
+
 export default function CustomerHome() {
   return (
     <main className="shell">
@@ -103,6 +108,30 @@ export default function CustomerHome() {
             <label>Amount</label>
             <input value="NGN 45,000.00" readOnly />
             <button className="primary">Review transfer</button>
+          </div>
+        </section>
+
+        <section className="contentGrid secondaryGrid">
+          <div className="panel">
+            <div className="sectionTitle">
+              <h3>Beneficiaries</h3>
+              <button>Add</button>
+            </div>
+            <div className="beneficiaryList">
+              {beneficiaries.map((beneficiary) => (
+                <article className="beneficiary" key={beneficiary.account}>
+                  <strong>{beneficiary.name}</strong>
+                  <span>{beneficiary.bank}</span>
+                  <b>{beneficiary.account}</b>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="panel statementPanel">
+            <h3>Statement ready</h3>
+            <p className="muted">Generated statements include opening balance, closing balance, credits, debits, and ledger entries.</p>
+            <button className="primary">Download statement</button>
           </div>
         </section>
       </section>

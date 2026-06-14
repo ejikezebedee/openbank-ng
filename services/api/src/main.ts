@@ -6,6 +6,8 @@ import { registerReferenceRoutes } from "./routes/reference.js";
 import { registerTransferRoutes } from "./routes/transfers.js";
 import { registerAdminRoutes } from "./routes/admin.js";
 import { registerAuthRoutes } from "./routes/auth.js";
+import { registerBeneficiaryRoutes } from "./routes/beneficiaries.js";
+import { registerStatementRoutes } from "./routes/statements.js";
 import "./types.js";
 
 const app = Fastify({ logger: true });
@@ -20,6 +22,8 @@ await app.register(registerReferenceRoutes);
 await app.register(registerTransferRoutes);
 await app.register(registerAdminRoutes);
 await app.register(registerAuthRoutes);
+await app.register(registerBeneficiaryRoutes);
+await app.register(registerStatementRoutes);
 
 app.get("/health", async () => ({
   status: "ok",

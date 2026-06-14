@@ -9,6 +9,41 @@ const loginSchema = z.object({
 });
 
 export async function registerAuthRoutes(app: FastifyInstance) {
+  app.post("/v1/auth/customer/login", async (request, reply) => {
+    const parsed = loginSchema.safeParse(request.body);
+
+    if (!parsed.success) {
+      return reply.code(422).send({ error: "VALIDATION_ERROR", details: parsed.error.flatten() });
+    }
+
+    const user = store.customerUsers.find((entry) => entry.email === parsed.data.email && entry.active);
+    const customer = user ? store.customers.find((entry) => entry.id === user.customerId) : undefined;
+
+    if (!user || !customer) {
+      return reply.code(401).send({ error: "INVALID_CREDENTIALS" });
+    }
+
+    appendAuditEvent({
+      actorId: customer.id,
+      actorRole: "customer",
+      action: "auth.login",
+      entityType: "customer",
+      entityId: customer.id,
+      message: `${customer.firstName} ${customer.lastName} authenticated into the customer portal.`,
+    });
+
+    return {
+      data: {
+        customer,
+        session: {
+          tokenType: "Bearer",
+          accessToken: `sandbox.${customer.id}.replace-with-jwt-provider`,
+          expiresInSeconds: 900,
+        },
+      },
+    };
+  });
+
   app.post("/v1/auth/admin/login", async (request, reply) => {
     const parsed = loginSchema.safeParse(request.body);
 
