@@ -63,6 +63,7 @@
 - Sales page
 - Pricing justification
 - Final release audit
+- Buyer handoff guide
 
 ## Phase 7 - GitHub Delivery
 

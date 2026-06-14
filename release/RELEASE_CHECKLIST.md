@@ -2,15 +2,15 @@
 
 ## Commercial Readiness
 
-- [ ] Clear title and positioning
-- [ ] Buyer pain point documented
-- [ ] Product promise documented
-- [ ] Target buyers documented
-- [ ] Pricing rationale included
-- [ ] Sales page copy included
-- [ ] FAQ included
+- [x] Clear title and positioning
+- [x] Buyer pain point documented
+- [x] Product promise documented
+- [x] Target buyers documented
+- [x] Pricing rationale included
+- [x] Sales page copy included
+- [x] FAQ included
 - [ ] License terms selected
-- [ ] Buyer compliance notice included
+- [x] Buyer compliance notice included
 
 ## Product Completeness
 
@@ -23,20 +23,20 @@
 - [ ] KYC workflow implemented
 - [ ] Transaction lifecycle implemented
 - [ ] Demo data included
-- [ ] Tests included
-- [ ] API docs included
-- [ ] Setup guide included
-- [ ] Deployment guide included
+- [x] Tests included
+- [x] API docs included
+- [x] Setup guide included
+- [x] Deployment guide included
 
 ## Nigerian Banking Readiness
 
-- [ ] NGN/kobo money handling
-- [ ] Nigerian phone normalization
-- [ ] Nigerian bank code directory
-- [ ] NUBAN-style account-number support
-- [ ] BVN/NIN-ready KYC fields
-- [ ] KYC tier limits
-- [ ] NIP/NIBSS-style transfer statuses
+- [x] NGN/kobo money handling
+- [x] Nigerian phone normalization
+- [x] Nigerian bank code directory
+- [x] NUBAN-style account-number support
+- [x] BVN/NIN-ready KYC fields
+- [x] KYC tier limits
+- [x] NIP/NIBSS-style transfer statuses
 - [ ] Funding provider adapter
 - [ ] Payout provider adapter
 - [ ] Webhook signature verification pattern
@@ -44,24 +44,31 @@
 
 ## Security And Compliance Warnings
 
-- [ ] No hardcoded secrets
-- [ ] No private keys or tokens
-- [ ] No internal server paths
-- [ ] No local agent/workspace paths
-- [ ] No machine-specific home-directory paths
-- [ ] No private emails
-- [ ] No misleading banking-license claims
-- [ ] No GTBank or Standard Chartered branding/assets
-- [ ] Buyer compliance responsibilities stated
-- [ ] Production audit warning included
+- [x] No hardcoded secrets
+- [x] No private keys or tokens
+- [x] No internal server paths
+- [x] No local agent/workspace paths
+- [x] No machine-specific home-directory paths
+- [x] No private emails
+- [x] No misleading banking-license claims
+- [x] No GTBank or Standard Chartered branding/assets
+- [x] Buyer compliance responsibilities stated
+- [x] Production audit warning included
 
 ## GitHub Delivery Gate
 
-- [ ] Repository destination selected
-- [ ] Branch strategy selected
-- [ ] README complete
-- [ ] `.env.example` complete
-- [ ] Portable setup instructions
-- [ ] Tests or verification notes included
-- [ ] Release notes included
-- [ ] GitHub-ready locally
+- [x] Repository destination selected
+- [x] Branch strategy selected
+- [x] README complete
+- [x] `.env.example` complete
+- [x] Portable setup instructions
+- [x] Tests or verification notes included
+- [x] Release notes included
+- [x] GitHub-ready locally
+
+## Phase 6 Release Audit Notes
+
+- Buyer-facing setup, deployment, API, troubleshooting, handoff, demo, sales, and release checklist files are present.
+- Documentation uses portable relative paths.
+- Buyer compliance and production-security responsibilities are stated.
+- Final public release remains gated by Phase 7 delivery polish and MD approval.

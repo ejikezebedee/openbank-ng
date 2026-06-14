@@ -35,6 +35,9 @@ OpenBank NG gives you a complete source-code foundation for building Nigerian wa
 - Setup guide
 - API documentation
 - Deployment guide
+- Troubleshooting guide
+- Buyer handoff guide
+- Demo video script
 - Buyer compliance checklist
 
 ## Who It Is For
@@ -59,6 +62,18 @@ Suggested pricing:
 - Commercial customization support: $1,000+
 
 The value is time saved. A buyer gets a serious fintech foundation that could otherwise require months of planning and development.
+
+## Buyer Outcome
+
+The buyer receives a working fullstack foundation they can run locally, evaluate with sandbox data, extend with licensed providers, and adapt into a client or company-specific Nigerian fintech product.
+
+## What Makes It Different
+
+- It includes backend banking workflows, not only screens.
+- It includes admin operations and risk review, not only customer UI.
+- It includes ledger, audit, KYC, transfer, and notification boundaries.
+- It includes buyer documentation for setup, deployment, API usage, troubleshooting, and handoff.
+- It states the compliance boundary clearly so buyers understand their responsibilities.
 
 ## FAQ
 
