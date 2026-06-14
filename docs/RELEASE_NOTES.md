@@ -15,9 +15,9 @@ OpenBank NG is a fullstack Nigerian banking and wallet source-code package.
 - Nigerian bank-code support.
 - BVN/NIN-ready KYC workflow.
 - Account, ledger, transfer, reversal, statement, beneficiary, audit, risk, OTP, device, and notification workflows.
-- Setup, deployment, API, troubleshooting, demo, buyer handoff, sales, Gumroad listing, buyer FAQ, launch assets, and release checklist documentation.
+- Setup, deployment, API, troubleshooting, demo, buyer handoff, sales, Gumroad listing, buyer FAQ, launch assets, post-purchase email, support policy, and release checklist documentation.
 - Changelog, security policy, package manifest, GitHub delivery guide, and final release audit.
-- Marketplace launch checklist for public-sale readiness review.
+- Marketplace launch checklist and buyer fulfillment checklist for public-sale and delivery readiness review.
 
 ### Verification
 
@@ -26,6 +26,7 @@ OpenBank NG is a fullstack Nigerian banking and wallet source-code package.
 - API smoke tests have covered customer auth, beneficiaries, statements, OTP, device trust, transfer risk hold, admin release, and notifications.
 - Buyer-facing documentation uses portable paths and states the commercial compliance boundary.
 - Marketplace listing materials state the software-only boundary and public-sale approval gate.
+- Buyer fulfillment materials state the access, support, and compliance boundaries.
 
 ### Known Production Gaps
 

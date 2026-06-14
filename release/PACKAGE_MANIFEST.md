@@ -49,6 +49,7 @@
 - `docs/PHASE-006-BUYER-PACKAGE.md`
 - `docs/PHASE-007-GITHUB-DELIVERY.md`
 - `docs/PHASE-008-MARKETPLACE-LAUNCH.md`
+- `docs/PHASE-009-BUYER-FULFILLMENT.md`
 
 ## Sales And Release
 
@@ -56,10 +57,13 @@
 - `sales/GUMROAD_LISTING.md`
 - `sales/BUYER_FAQ.md`
 - `sales/LAUNCH_ASSETS.md`
+- `sales/POST_PURCHASE_EMAILS.md`
+- `sales/SUPPORT_POLICY_DRAFT.md`
 - `release/RELEASE_CHECKLIST.md`
 - `release/FINAL_RELEASE_AUDIT.md`
 - `release/PACKAGE_MANIFEST.md`
 - `release/MARKETPLACE_LAUNCH_CHECKLIST.md`
+- `release/BUYER_FULFILLMENT_CHECKLIST.md`
 
 ## Excluded From Buyer Package
 

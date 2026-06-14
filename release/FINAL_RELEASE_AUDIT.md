@@ -47,6 +47,9 @@ Included:
 - Buyer FAQ.
 - Launch assets.
 - Marketplace launch checklist.
+- Buyer fulfillment checklist.
+- Post-purchase email templates.
+- Support policy draft.
 
 ## Remaining Approval Items
 
@@ -59,6 +62,8 @@ These items require MD/business approval before public sale:
 - Repository visibility.
 - Marketplace/Gumroad listing.
 - Buyer access process.
+- Buyer fulfillment process.
+- Support scope.
 
 ## Production Caveat
 
@@ -66,4 +71,4 @@ OpenBank NG is a source-code platform. It must not be represented as a licensed 
 
 ## Audit Result
 
-Phase 8 release audit result: passed for private GitHub buyer evaluation and marketplace listing review. Public sale remains gated by MD approval.
+Phase 9 release audit result: passed for private GitHub buyer evaluation, marketplace listing review, and controlled buyer-fulfillment planning. Public sale and buyer access remain gated by MD approval.

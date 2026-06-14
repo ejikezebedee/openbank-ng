@@ -97,3 +97,11 @@
 - Marketplace launch checklist is present.
 - Gumroad product requirements are covered: title, pain point, practical package, setup, examples, troubleshooting references, sales copy, pricing justification, FAQ, and release checklist.
 - Public sale remains gated by MD approval of license, price, refund policy, support scope, buyer access, repository visibility, and final product page.
+
+## Phase 9 Buyer Fulfillment Notes
+
+- Buyer fulfillment checklist is present.
+- Post-purchase email templates are present.
+- Support policy draft is present.
+- Buyer first-run verification requirements are documented.
+- Delivery remains gated by MD approval of buyer identity, license, payment confirmation, refund policy, support scope, delivery channel, and repository/download access method.
