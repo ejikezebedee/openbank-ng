@@ -48,13 +48,18 @@
 - `docs/PHASE-005-SECURITY-RISK-NOTIFICATIONS.md`
 - `docs/PHASE-006-BUYER-PACKAGE.md`
 - `docs/PHASE-007-GITHUB-DELIVERY.md`
+- `docs/PHASE-008-MARKETPLACE-LAUNCH.md`
 
 ## Sales And Release
 
 - `sales/SALES_PAGE_COPY.md`
+- `sales/GUMROAD_LISTING.md`
+- `sales/BUYER_FAQ.md`
+- `sales/LAUNCH_ASSETS.md`
 - `release/RELEASE_CHECKLIST.md`
 - `release/FINAL_RELEASE_AUDIT.md`
 - `release/PACKAGE_MANIFEST.md`
+- `release/MARKETPLACE_LAUNCH_CHECKLIST.md`
 
 ## Excluded From Buyer Package
 

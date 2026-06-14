@@ -13,6 +13,7 @@
 - PostgreSQL adapter boundary and core migration.
 - Ledger posting, transfer idempotency, reversal flow, KYC decision flow, account freeze/unfreeze, risk review hold, admin release/reject, OTP challenge, trusted device, and notification outbox.
 - Buyer package documentation: setup, deployment, API reference, troubleshooting, demo video script, buyer handoff, license draft, release notes, release checklist, sales copy, and final release audit.
+- Marketplace launch package: Gumroad listing, buyer FAQ, launch assets, marketplace checklist, and Phase 8 marketplace launch report.
 
 ### Verification
 

@@ -20,7 +20,7 @@ Checked:
 
 - No machine-specific absolute home paths in buyer-facing files.
 - No internal agent workspace paths in buyer-facing files.
-- No VPS/internal infrastructure references in buyer-facing files.
+- No private infrastructure references in buyer-facing files.
 - No private tokens, keys, or credential patterns found.
 - No private emails.
 - No misleading claim that the product includes a banking license.
@@ -43,6 +43,10 @@ Included:
 - Security policy.
 - Package manifest.
 - Sales page copy.
+- Gumroad listing copy.
+- Buyer FAQ.
+- Launch assets.
+- Marketplace launch checklist.
 
 ## Remaining Approval Items
 
@@ -62,4 +66,4 @@ OpenBank NG is a source-code platform. It must not be represented as a licensed 
 
 ## Audit Result
 
-Phase 7 release audit result: passed for private GitHub buyer evaluation.
+Phase 8 release audit result: passed for private GitHub buyer evaluation and marketplace listing review. Public sale remains gated by MD approval.

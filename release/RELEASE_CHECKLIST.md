@@ -88,3 +88,12 @@
 - Final release audit is present.
 - Repository remains private unless MD approves a visibility change.
 - Public release remains gated by final license, pricing, support, and buyer-access approval.
+
+## Phase 8 Marketplace Launch Notes
+
+- Gumroad listing copy is present.
+- Buyer FAQ is present.
+- Launch post and marketplace image text guidance are present.
+- Marketplace launch checklist is present.
+- Gumroad product requirements are covered: title, pain point, practical package, setup, examples, troubleshooting references, sales copy, pricing justification, FAQ, and release checklist.
+- Public sale remains gated by MD approval of license, price, refund policy, support scope, buyer access, repository visibility, and final product page.
