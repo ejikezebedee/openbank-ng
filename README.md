@@ -20,7 +20,9 @@ OpenBank NG is designed as a complete end-to-end platform:
 - NGN/kobo money handling
 - KYC workflow with BVN/NIN-ready fields
 - Tiered limits
+- Trusted device, OTP, and transfer-risk review controls
 - Transfer and funding workflows
+- Notification outbox for banking events
 - Provider adapter layer
 - Transaction receipts
 - Reconciliation support
@@ -78,5 +80,6 @@ See:
 - [Product Blueprint](./docs/PRODUCT_BLUEPRINT.md)
 - [Architecture](./docs/ARCHITECTURE.md)
 - [Nigeria Banking Model](./docs/NIGERIA_BANKING_MODEL.md)
+- [Phase 5 Security Risk Notifications](./docs/PHASE-005-SECURITY-RISK-NOTIFICATIONS.md)
 - [Release Checklist](./release/RELEASE_CHECKLIST.md)
 - [Sales Page Copy](./sales/SALES_PAGE_COPY.md)

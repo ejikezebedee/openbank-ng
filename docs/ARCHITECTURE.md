@@ -96,6 +96,14 @@ Statuses:
 - reversed
 - cancelled
 
+Transfer security controls:
+
+- Trusted customer-device context.
+- OTP challenge verification before sensitive money movement.
+- Risk scoring based on device, OTP, KYC tier, and repeated similar transfers.
+- Manual review queue for high-risk transfers.
+- Release and rejection workflow with audit and notification records.
+
 ### Provider Adapters
 
 Provider integrations must be replaceable.
@@ -131,6 +139,7 @@ Admin users can:
 - Export reconciliation reports
 - Manage fees and limits
 - Handle support disputes
+- Release or reject security-held transfers
 - Review audit logs
 
 ### Audit And Compliance
@@ -158,6 +167,7 @@ Audit logs are required for:
 - Input validation at API boundary
 - Strict CORS configuration for production
 - Staff role separation
+- Device trust, OTP verification, and risk holds on sensitive transfer actions
 
 ## Completion Definition
 

@@ -7,6 +7,7 @@ const account = {
   balanceKobo: 245000000,
   availableBalanceKobo: 245000000,
   tier: "Tier 2",
+  device: "Trusted phone",
 };
 
 const actions = [
@@ -63,7 +64,7 @@ export default function CustomerHome() {
           </div>
           <div className="assurance">
             <ShieldCheck size={24} />
-            <span>KYC {account.tier} verified</span>
+            <span>KYC {account.tier} verified • {account.device}</span>
           </div>
         </section>
 
@@ -107,6 +108,8 @@ export default function CustomerHome() {
             <input value="Standard Chartered Bank Nigeria" readOnly />
             <label>Amount</label>
             <input value="NGN 45,000.00" readOnly />
+            <label>Security</label>
+            <input value="OTP verified • Low risk" readOnly />
             <button className="primary">Review transfer</button>
           </div>
         </section>
@@ -129,9 +132,9 @@ export default function CustomerHome() {
           </div>
 
           <div className="panel statementPanel">
-            <h3>Statement ready</h3>
-            <p className="muted">Generated statements include opening balance, closing balance, credits, debits, and ledger entries.</p>
-            <button className="primary">Download statement</button>
+            <h3>Security alerts</h3>
+            <p className="muted">Transfer status, OTP, device trust, and review decisions appear in the notification outbox.</p>
+            <button className="primary">Open alerts</button>
           </div>
         </section>
       </section>

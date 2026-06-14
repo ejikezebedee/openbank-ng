@@ -81,14 +81,64 @@ CREATE TABLE transfers (
   narration TEXT NOT NULL,
   channel TEXT NOT NULL,
   idempotency_key TEXT NOT NULL UNIQUE,
+  customer_device_id TEXT,
+  otp_challenge_id TEXT,
   status TEXT NOT NULL,
   reference TEXT NOT NULL UNIQUE,
+  risk_score INTEGER NOT NULL DEFAULT 0,
+  risk_level TEXT NOT NULL DEFAULT 'low',
+  risk_reasons JSONB NOT NULL DEFAULT '[]'::jsonb,
   failure_reason TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   completed_at TIMESTAMPTZ,
   reversed_at TIMESTAMPTZ,
-  reversal_reason TEXT
+  reversal_reason TEXT,
+  reviewed_by TEXT REFERENCES admin_users(id),
+  reviewed_at TIMESTAMPTZ
 );
+
+CREATE INDEX transfers_review_queue_idx ON transfers(status, risk_level, created_at DESC);
+
+CREATE TABLE customer_devices (
+  id TEXT PRIMARY KEY,
+  customer_id TEXT NOT NULL REFERENCES customers(id),
+  label TEXT NOT NULL,
+  fingerprint TEXT NOT NULL,
+  trusted BOOLEAN NOT NULL DEFAULT false,
+  last_seen_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE(customer_id, fingerprint)
+);
+
+CREATE TABLE otp_challenges (
+  id TEXT PRIMARY KEY,
+  customer_id TEXT NOT NULL REFERENCES customers(id),
+  purpose TEXT NOT NULL,
+  target_id TEXT,
+  code_hash TEXT NOT NULL,
+  verified BOOLEAN NOT NULL DEFAULT false,
+  expires_at TIMESTAMPTZ NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  verified_at TIMESTAMPTZ
+);
+
+CREATE INDEX otp_challenges_customer_idx ON otp_challenges(customer_id, purpose, created_at DESC);
+
+CREATE TABLE notifications (
+  id TEXT PRIMARY KEY,
+  customer_id TEXT REFERENCES customers(id),
+  admin_user_id TEXT REFERENCES admin_users(id),
+  channel TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'queued',
+  subject TEXT NOT NULL,
+  body TEXT NOT NULL,
+  related_entity_type TEXT,
+  related_entity_id TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  sent_at TIMESTAMPTZ
+);
+
+CREATE INDEX notifications_customer_idx ON notifications(customer_id, created_at DESC);
 
 CREATE TABLE kyc_review_cases (
   id TEXT PRIMARY KEY,

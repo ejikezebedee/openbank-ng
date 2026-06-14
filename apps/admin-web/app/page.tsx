@@ -9,15 +9,16 @@ const queues = [
 ];
 
 const transfers = [
-  { ref: "OBNG2026061401", customer: "Adaeze Okafor", amountKobo: 4500000, status: "Successful" },
-  { ref: "OBNG2026061402", customer: "Musa Abdullahi", amountKobo: 150000000, status: "Review" },
-  { ref: "OBNG2026061403", customer: "Chika Nwosu", amountKobo: 800000, status: "Successful" },
+  { ref: "OBNG2026061401", customer: "Adaeze Okafor", amountKobo: 4500000, status: "Successful", risk: "Low" },
+  { ref: "OBNG2026061402", customer: "Musa Abdullahi", amountKobo: 150000000, status: "Review", risk: "High" },
+  { ref: "OBNG2026061403", customer: "Chika Nwosu", amountKobo: 800000, status: "Successful", risk: "Low" },
 ];
 
 const auditEvents = [
   "KYC approved for Adaeze Okafor",
   "Account freeze control ready",
   "Transfer reversal workflow enabled",
+  "High-risk transfer moved to manual review",
 ];
 
 export default function AdminHome() {
@@ -56,6 +57,7 @@ export default function AdminHome() {
                 <th>Reference</th>
                 <th>Customer</th>
                 <th>Amount</th>
+                <th>Risk</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -65,6 +67,7 @@ export default function AdminHome() {
                   <td>{transfer.ref}</td>
                   <td>{transfer.customer}</td>
                   <td>{formatKobo(transfer.amountKobo)}</td>
+                  <td><span className={transfer.risk === "High" ? "pill warn" : "pill"}>{transfer.risk}</span></td>
                   <td><span className={transfer.status === "Review" ? "pill warn" : "pill"}>{transfer.status}</span></td>
                 </tr>
               ))}
@@ -75,7 +78,7 @@ export default function AdminHome() {
         <div className="panel risk">
           <AlertTriangle size={28} />
           <h2>Risk gate</h2>
-          <p>Large transfers, frozen accounts, failed identity checks, and repeated idempotency conflicts route here before release.</p>
+          <p>Untrusted devices, missing OTP, large tier-relative transfers, and repeated similar transfers route here before release.</p>
           <button>Open review queue</button>
         </div>
       </section>

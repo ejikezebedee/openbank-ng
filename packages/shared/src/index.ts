@@ -10,6 +10,17 @@ export type TransferChannel = "internal" | "nip_mock" | "manual_review";
 export type BeneficiaryStatus = "active" | "disabled";
 export type AdminRole = "super_admin" | "operations_manager" | "compliance_officer" | "support_agent" | "auditor";
 export type AuditSeverity = "info" | "warning" | "critical";
+export type NotificationChannel = "email" | "sms" | "push" | "in_app";
+export type NotificationStatus = "queued" | "sent" | "failed";
+export type RiskLevel = "low" | "medium" | "high" | "critical";
+export type OtpPurpose = "login" | "transfer" | "beneficiary";
+export type SecurityEventType =
+  | "device.trusted"
+  | "otp.challenge_created"
+  | "otp.challenge_verified"
+  | "transfer.risk_hold"
+  | "transfer.release"
+  | "transfer.reject";
 export type AuditEventAction =
   | "auth.login"
   | "auth.logout"
@@ -20,7 +31,9 @@ export type AuditEventAction =
   | "beneficiary.create"
   | "beneficiary.disable"
   | "transfer.create"
-  | "transfer.reverse";
+  | "transfer.reverse"
+  | SecurityEventType
+  | "notification.queue";
 export type KycReviewDecision = "approved" | "rejected" | "needs_more_info";
 
 export type TransactionStatus =
@@ -132,17 +145,24 @@ export interface TransferInstruction {
   narration: string;
   channel: TransferChannel;
   idempotencyKey: string;
+  customerDeviceId?: string;
+  otpChallengeId?: string;
 }
 
 export interface TransferRecord extends TransferInstruction {
   id: string;
   status: TransactionStatus;
   reference: string;
+  riskScore: number;
+  riskLevel: RiskLevel;
+  riskReasons: string[];
   failureReason?: string;
   createdAt: string;
   completedAt?: string;
   reversedAt?: string;
   reversalReason?: string;
+  reviewedBy?: string;
+  reviewedAt?: string;
 }
 
 export interface Beneficiary {
@@ -214,9 +234,53 @@ export interface AccountControlRecord {
   createdAt: string;
 }
 
+export interface CustomerDevice {
+  id: string;
+  customerId: string;
+  label: string;
+  fingerprint: string;
+  trusted: boolean;
+  lastSeenAt: string;
+  createdAt: string;
+}
+
+export interface OtpChallenge {
+  id: string;
+  customerId: string;
+  purpose: OtpPurpose;
+  targetId?: string;
+  code: string;
+  verified: boolean;
+  expiresAt: string;
+  createdAt: string;
+  verifiedAt?: string;
+}
+
+export interface NotificationMessage {
+  id: string;
+  customerId?: string;
+  adminUserId?: string;
+  channel: NotificationChannel;
+  status: NotificationStatus;
+  subject: string;
+  body: string;
+  relatedEntityType?: string;
+  relatedEntityId?: string;
+  createdAt: string;
+  sentAt?: string;
+}
+
+export interface TransferRiskAssessment {
+  score: number;
+  level: RiskLevel;
+  reasons: string[];
+  requiresOtp: boolean;
+  requiresManualReview: boolean;
+}
+
 export const rolePermissions: Record<AdminRole, string[]> = {
   super_admin: ["*"],
-  operations_manager: ["accounts:write", "transfers:reverse", "audit:read", "kyc:read"],
+  operations_manager: ["accounts:write", "transfers:reverse", "transfers:review", "audit:read", "kyc:read"],
   compliance_officer: ["kyc:write", "kyc:read", "audit:read", "accounts:freeze"],
   support_agent: ["customers:read", "accounts:read", "kyc:read"],
   auditor: ["audit:read", "customers:read", "accounts:read", "transfers:read"],

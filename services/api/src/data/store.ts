@@ -6,8 +6,11 @@ import type {
   Beneficiary,
   CustomerProfile,
   CustomerUser,
+  CustomerDevice,
   KycReviewCase,
   LedgerEntry,
+  NotificationMessage,
+  OtpChallenge,
   TransferRecord,
 } from "@openbank-ng/shared";
 
@@ -22,6 +25,9 @@ export interface OpenBankStore {
   auditEvents: AuditEvent[];
   kycReviewCases: KycReviewCase[];
   accountControls: AccountControlRecord[];
+  customerDevices: CustomerDevice[];
+  otpChallenges: OtpChallenge[];
+  notifications: NotificationMessage[];
   idempotencyKeys: Map<string, string>;
 }
 
@@ -135,5 +141,30 @@ export const store: OpenBankStore = {
     },
   ],
   accountControls: [],
+  customerDevices: [
+    {
+      id: "dev_001",
+      customerId: "cus_001",
+      label: "Adaeze primary phone",
+      fingerprint: "sandbox-device-fingerprint",
+      trusted: true,
+      lastSeenAt: now,
+      createdAt: now,
+    },
+  ],
+  otpChallenges: [
+    {
+      id: "otp_seed_transfer",
+      customerId: "cus_001",
+      purpose: "transfer",
+      targetId: "acct_001",
+      code: "123456",
+      verified: true,
+      expiresAt: "2099-01-01T00:00:00.000Z",
+      createdAt: now,
+      verifiedAt: now,
+    },
+  ],
+  notifications: [],
   idempotencyKeys: new Map(),
 };

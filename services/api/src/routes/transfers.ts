@@ -11,6 +11,8 @@ const transferSchema = z.object({
   narration: z.string().max(120).default("OpenBank NG transfer"),
   channel: z.enum(["internal", "nip_mock", "manual_review"]).default("nip_mock"),
   idempotencyKey: z.string().min(12),
+  customerDeviceId: z.string().min(1).optional(),
+  otpChallengeId: z.string().min(1).optional(),
 });
 
 export async function registerTransferRoutes(app: FastifyInstance) {

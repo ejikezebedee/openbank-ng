@@ -3,7 +3,7 @@ import { z } from "zod";
 import { store } from "../data/store.js";
 import { decideKycReview, setAccountStatus } from "../services/adminOperations.js";
 import { listAuditEvents } from "../services/audit.js";
-import { reverseTransfer } from "../services/transfers.js";
+import { rejectHeldTransfer, releaseHeldTransfer, reverseTransfer } from "../services/transfers.js";
 
 const actorHeader = "x-admin-id";
 
@@ -98,6 +98,35 @@ export async function registerAdminRoutes(app: FastifyInstance) {
 
     try {
       return { data: reverseTransfer(transferId, parsed.data.reason, getActorId(request)) };
+    } catch (error) {
+      return reply.code(403).send({ error: "ADMIN_OPERATION_DENIED", message: (error as Error).message });
+    }
+  });
+
+  app.get("/v1/admin/transfers/review-queue", async () => ({
+    data: store.transfers.filter((transfer) => transfer.status === "requires_review"),
+  }));
+
+  app.post("/v1/admin/transfers/:transferId/release", async (request, reply) => {
+    const { transferId } = request.params as { transferId: string };
+
+    try {
+      return { data: releaseHeldTransfer(transferId, getActorId(request)) };
+    } catch (error) {
+      return reply.code(403).send({ error: "ADMIN_OPERATION_DENIED", message: (error as Error).message });
+    }
+  });
+
+  app.post("/v1/admin/transfers/:transferId/reject", async (request, reply) => {
+    const { transferId } = request.params as { transferId: string };
+    const parsed = reasonSchema.safeParse(request.body);
+
+    if (!parsed.success) {
+      return reply.code(422).send({ error: "VALIDATION_ERROR", details: parsed.error.flatten() });
+    }
+
+    try {
+      return { data: rejectHeldTransfer(transferId, parsed.data.reason, getActorId(request)) };
     } catch (error) {
       return reply.code(403).send({ error: "ADMIN_OPERATION_DENIED", message: (error as Error).message });
     }

@@ -137,6 +137,9 @@ export const inMemoryUnitOfWork: UnitOfWork = {
       transfers: structuredClone(store.transfers),
       auditEvents: structuredClone(store.auditEvents),
       beneficiaries: structuredClone(store.beneficiaries),
+      customerDevices: structuredClone(store.customerDevices),
+      otpChallenges: structuredClone(store.otpChallenges),
+      notifications: structuredClone(store.notifications),
       idempotencyKeys: new Map(store.idempotencyKeys),
     };
 
@@ -148,6 +151,9 @@ export const inMemoryUnitOfWork: UnitOfWork = {
       store.transfers = snapshot.transfers;
       store.auditEvents = snapshot.auditEvents;
       store.beneficiaries = snapshot.beneficiaries;
+      store.customerDevices = snapshot.customerDevices;
+      store.otpChallenges = snapshot.otpChallenges;
+      store.notifications = snapshot.notifications;
       store.idempotencyKeys = snapshot.idempotencyKeys;
       throw error;
     }

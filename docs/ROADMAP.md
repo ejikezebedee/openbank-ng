@@ -48,6 +48,10 @@
 - Fee/limit controls
 - Audit log viewer
 - Reconciliation workspace
+- Trusted device controls
+- OTP challenge boundary
+- Transfer risk scoring and manual release/reject queue
+- Notification outbox
 
 ## Phase 6 - Buyer Package
 

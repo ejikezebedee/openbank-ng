@@ -8,7 +8,9 @@ import {
 import { store } from "../data/store.js";
 import { appendAuditEvent } from "./audit.js";
 import { getAccount, postCredit, postDebit } from "./ledger.js";
+import { queueNotification } from "./notifications.js";
 import { requirePermission } from "./rbac.js";
+import { assessTransferRisk } from "./security.js";
 import { inMemoryUnitOfWork } from "../repositories/memoryRepositories.js";
 
 function makeReference(): string {
@@ -36,6 +38,9 @@ function createTransferInsideTransaction(instruction: TransferInstruction): Tran
     id: `trf_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
     status: "processing",
     reference: makeReference(),
+    riskScore: 0,
+    riskLevel: "low",
+    riskReasons: [],
     createdAt: new Date().toISOString(),
   };
 
@@ -61,6 +66,37 @@ function createTransferInsideTransaction(instruction: TransferInstruction): Tran
     transfer.status = "failed";
     transfer.failureReason = "Insufficient available balance.";
   } else {
+    const risk = assessTransferRisk(instruction);
+    transfer.riskScore = risk.score;
+    transfer.riskLevel = risk.level;
+    transfer.riskReasons = risk.reasons;
+
+    if (risk.requiresManualReview) {
+      transfer.status = "requires_review";
+      transfer.failureReason = "Transfer is held for security review.";
+      appendAuditEvent({
+        actorId: account.customerId,
+        actorRole: "customer",
+        action: "transfer.risk_hold",
+        severity: risk.level === "critical" ? "critical" : "warning",
+        entityType: "transfer",
+        entityId: transfer.id,
+        message: `Transfer ${transfer.reference} held for security review.`,
+        metadata: { riskScore: risk.score, riskLevel: risk.level },
+      });
+      queueNotification({
+        customerId: account.customerId,
+        channel: "in_app",
+        subject: "Transfer held for review",
+        body: "Your transfer is under security review. You will be notified when it is released or rejected.",
+        relatedEntityType: "transfer",
+        relatedEntityId: transfer.id,
+      });
+      store.transfers.push(transfer);
+      store.idempotencyKeys.set(instruction.idempotencyKey, transfer.id);
+      return transfer;
+    }
+
     postDebit(account, transfer.id, instruction.amountKobo, instruction.narration || "OpenBank NG transfer");
     transfer.status = "successful";
     transfer.completedAt = new Date().toISOString();
@@ -72,6 +108,14 @@ function createTransferInsideTransaction(instruction: TransferInstruction): Tran
       entityId: transfer.id,
       message: `Transfer ${transfer.reference} posted successfully.`,
       metadata: { amountKobo: instruction.amountKobo, beneficiaryBankCode: instruction.beneficiaryBankCode },
+    });
+    queueNotification({
+      customerId: account.customerId,
+      channel: "in_app",
+      subject: "Transfer successful",
+      body: `Your transfer of ${instruction.amountKobo} kobo to ${instruction.beneficiaryName} was successful.`,
+      relatedEntityType: "transfer",
+      relatedEntityId: transfer.id,
     });
   }
 
@@ -119,4 +163,93 @@ function reverseTransferInsideTransaction(transferId: string, reason: string, ac
   });
 
   return transfer;
+}
+
+export function releaseHeldTransfer(transferId: string, actorId: string): TransferRecord {
+  return inMemoryUnitOfWork.transaction("release_transfer", () => {
+    const actor = requirePermission(actorId, "transfers:review");
+    const transfer = store.transfers.find((entry) => entry.id === transferId);
+
+    if (!transfer) {
+      throw new Error("Transfer was not found.");
+    }
+
+    if (transfer.status !== "requires_review") {
+      throw new Error("Only transfers requiring review can be released.");
+    }
+
+    const account = getAccount(transfer.sourceAccountId);
+
+    if (!account || account.availableBalanceKobo < transfer.amountKobo) {
+      throw new Error("Source account cannot fund the transfer.");
+    }
+
+    postDebit(account, transfer.id, transfer.amountKobo, transfer.narration || "OpenBank NG transfer release");
+    transfer.status = "successful";
+    transfer.failureReason = undefined;
+    transfer.completedAt = new Date().toISOString();
+    transfer.reviewedBy = actor.id;
+    transfer.reviewedAt = transfer.completedAt;
+
+    appendAuditEvent({
+      actorId: actor.id,
+      actorRole: actor.role,
+      action: "transfer.release",
+      entityType: "transfer",
+      entityId: transfer.id,
+      message: `Held transfer ${transfer.reference} released by ${actor.name}.`,
+      metadata: { riskScore: transfer.riskScore, riskLevel: transfer.riskLevel },
+    });
+    queueNotification({
+      customerId: account.customerId,
+      channel: "in_app",
+      subject: "Transfer released",
+      body: "Your held transfer has been released successfully.",
+      relatedEntityType: "transfer",
+      relatedEntityId: transfer.id,
+    });
+
+    return transfer;
+  });
+}
+
+export function rejectHeldTransfer(transferId: string, reason: string, actorId: string): TransferRecord {
+  return inMemoryUnitOfWork.transaction("reject_transfer", () => {
+    const actor = requirePermission(actorId, "transfers:review");
+    const transfer = store.transfers.find((entry) => entry.id === transferId);
+
+    if (!transfer) {
+      throw new Error("Transfer was not found.");
+    }
+
+    if (transfer.status !== "requires_review") {
+      throw new Error("Only transfers requiring review can be rejected.");
+    }
+
+    transfer.status = "failed";
+    transfer.failureReason = reason;
+    transfer.reviewedBy = actor.id;
+    transfer.reviewedAt = new Date().toISOString();
+
+    appendAuditEvent({
+      actorId: actor.id,
+      actorRole: actor.role,
+      action: "transfer.reject",
+      severity: "warning",
+      entityType: "transfer",
+      entityId: transfer.id,
+      message: `Held transfer ${transfer.reference} rejected by ${actor.name}.`,
+      metadata: { reason, riskScore: transfer.riskScore, riskLevel: transfer.riskLevel },
+    });
+    queueNotification({
+      customerId: store.accounts.find((account) => account.id === transfer.sourceAccountId)?.customerId,
+      channel: "in_app",
+      subject: "Transfer rejected",
+      body: "Your held transfer was rejected after security review.",
+      relatedEntityType: "transfer",
+      relatedEntityId: transfer.id,
+    });
+
+    return transfer;
+  });
 }
