@@ -50,6 +50,10 @@ Included:
 - Buyer fulfillment checklist.
 - Post-purchase email templates.
 - Support policy draft.
+- Pricing package recommendation.
+- Commercial terms draft.
+- Commercial decision record.
+- Buyer access SOP.
 
 ## Remaining Approval Items
 
@@ -64,6 +68,7 @@ These items require MD/business approval before public sale:
 - Buyer access process.
 - Buyer fulfillment process.
 - Support scope.
+- Commercial decision record approval.
 
 ## Production Caveat
 
@@ -71,4 +76,4 @@ OpenBank NG is a source-code platform. It must not be represented as a licensed 
 
 ## Audit Result
 
-Phase 9 release audit result: passed for private GitHub buyer evaluation, marketplace listing review, and controlled buyer-fulfillment planning. Public sale and buyer access remain gated by MD approval.
+Phase 10 release audit result: passed for private GitHub buyer evaluation, marketplace listing review, controlled buyer-fulfillment planning, and commercial decision review. Public sale and buyer access remain gated by MD approval.

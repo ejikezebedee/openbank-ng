@@ -9,7 +9,7 @@
 - [x] Pricing rationale included
 - [x] Sales page copy included
 - [x] FAQ included
-- [ ] License terms selected
+- [ ] License terms approved by MD
 - [x] Buyer compliance notice included
 - [x] License terms draft included
 
@@ -105,3 +105,12 @@
 - Support policy draft is present.
 - Buyer first-run verification requirements are documented.
 - Delivery remains gated by MD approval of buyer identity, license, payment confirmation, refund policy, support scope, delivery channel, and repository/download access method.
+
+## Phase 10 Commercial Decision Gate Notes
+
+- Pricing packages are documented for approval.
+- Commercial terms draft is documented for approval.
+- Commercial decision record is present.
+- Buyer access SOP is present.
+- Recommended defaults are documented: $299 launch package, $499 pro package, $1,000+ customization, single-project commercial source-code license, private GitHub delivery, setup clarification support, and limited digital-product refund policy.
+- Public sale and buyer access remain blocked until MD approval is recorded.

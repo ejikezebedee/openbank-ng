@@ -15,6 +15,7 @@
 - Buyer package documentation: setup, deployment, API reference, troubleshooting, demo video script, buyer handoff, license draft, release notes, release checklist, sales copy, and final release audit.
 - Marketplace launch package: Gumroad listing, buyer FAQ, launch assets, marketplace checklist, and Phase 8 marketplace launch report.
 - Buyer fulfillment package: access checklist, post-purchase email templates, support policy draft, and Phase 9 buyer fulfillment report.
+- Commercial decision-gate package: pricing tiers, commercial terms draft, decision record, buyer access SOP, and Phase 10 commercial decision report.
 
 ### Verification
 

@@ -50,6 +50,7 @@
 - `docs/PHASE-007-GITHUB-DELIVERY.md`
 - `docs/PHASE-008-MARKETPLACE-LAUNCH.md`
 - `docs/PHASE-009-BUYER-FULFILLMENT.md`
+- `docs/PHASE-010-COMMERCIAL-DECISION-GATE.md`
 
 ## Sales And Release
 
@@ -59,11 +60,15 @@
 - `sales/LAUNCH_ASSETS.md`
 - `sales/POST_PURCHASE_EMAILS.md`
 - `sales/SUPPORT_POLICY_DRAFT.md`
+- `sales/PRICING_PACKAGES.md`
+- `sales/COMMERCIAL_TERMS_DRAFT.md`
 - `release/RELEASE_CHECKLIST.md`
 - `release/FINAL_RELEASE_AUDIT.md`
 - `release/PACKAGE_MANIFEST.md`
 - `release/MARKETPLACE_LAUNCH_CHECKLIST.md`
 - `release/BUYER_FULFILLMENT_CHECKLIST.md`
+- `release/COMMERCIAL_DECISION_RECORD.md`
+- `release/BUYER_ACCESS_SOP.md`
 
 ## Excluded From Buyer Package
 
