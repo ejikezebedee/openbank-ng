@@ -27,7 +27,7 @@ Body:
 ```json
 {
   "email": "adaeze@example.com",
-  "password": "password123"
+  "password": "OpenBankDemo!2026"
 }
 ```
 
@@ -40,7 +40,7 @@ Body:
 ```json
 {
   "email": "ops@openbankng.example",
-  "password": "password123"
+  "password": "OpenBankAdmin!2026"
 }
 ```
 
@@ -50,19 +50,21 @@ Returns admin profile and sandbox bearer session.
 
 ### `GET /v1/customers`
 
-Returns seed customers.
+Requires an admin bearer token with customer-read permission. Returns seed customers.
 
-### `GET /v1/customers/:customerId/accounts`
+### `GET /v1/customers/:customerId/summary`
 
-Returns customer accounts.
+Requires that customer's bearer token. Returns a customer profile with accounts, transfers, and recent ledger entries. Use the beneficiaries endpoint for beneficiary records.
 
 ## Beneficiaries
 
 ### `GET /v1/customers/:customerId/beneficiaries`
 
-Lists active and disabled beneficiaries for a customer.
+Requires that customer's bearer token. Lists active and disabled beneficiaries for a customer.
 
 ### `POST /v1/beneficiaries`
+
+Requires that customer's bearer token.
 
 Body:
 
@@ -83,11 +85,12 @@ Disables a beneficiary.
 
 ### `POST /v1/security/devices/trust`
 
+Requires a customer bearer token.
+
 Body:
 
 ```json
 {
-  "customerId": "cus_001",
   "label": "Primary phone",
   "fingerprint": "buyer-device-fingerprint"
 }
@@ -99,13 +102,12 @@ Body:
 
 ```json
 {
-  "customerId": "cus_001",
   "purpose": "transfer",
   "targetId": "acct_001"
 }
 ```
 
-Sandbox response includes a challenge ID. Production buyers must deliver OTP codes through an approved provider.
+Requires a customer bearer token. Sandbox response includes a challenge ID but never returns the OTP code. Production buyers must deliver OTP codes through an approved provider.
 
 ### `POST /v1/security/otp-challenges/:challengeId/verify`
 
@@ -113,7 +115,7 @@ Body:
 
 ```json
 {
-  "code": "123456"
+  "code": "<delivered-code>"
 }
 ```
 
@@ -121,9 +123,11 @@ Body:
 
 ### `GET /v1/transfers`
 
-Lists transfers.
+Requires a customer bearer token. Lists transfers for the authenticated customer's accounts.
 
 ### `POST /v1/transfers`
+
+Requires a customer bearer token. The authenticated customer must own the source account.
 
 Body:
 
@@ -138,7 +142,7 @@ Body:
   "channel": "nip_mock",
   "idempotencyKey": "unique-transfer-key-0001",
   "customerDeviceId": "dev_001",
-  "otpChallengeId": "otp_seed_transfer"
+  "otpChallengeId": "otp_generated_for_transfer"
 }
 ```
 
@@ -151,15 +155,52 @@ Possible statuses:
 
 High-risk transfers enter `requires_review` and wait for admin release or rejection.
 
+## Funding And Payout Provider Workflows
+
+These routes expose sandbox provider handoff records. Production buyers must replace the sandbox adapter with licensed funding, payout, webhook, and settlement providers.
+
+### `POST /v1/funding/intents`
+
+Requires a customer bearer token.
+
+Body:
+
+```json
+{
+  "amountKobo": 2500000,
+  "provider": "sandbox_bank_transfer"
+}
+```
+
+Returns a funding intent with `pending_provider_confirmation` status, reference, expiry, and sandbox virtual account number.
+
+### `POST /v1/payouts/dispatches`
+
+Requires a customer bearer token and an owned active source account.
+
+Body:
+
+```json
+{
+  "sourceAccountId": "acct_001",
+  "amountKobo": 1000000,
+  "beneficiaryAccountNumber": "0123456789",
+  "beneficiaryBankCode": "000027",
+  "provider": "sandbox_nip"
+}
+```
+
+Returns a payout dispatch with `pending_provider_dispatch` status for provider handoff.
+
 ## Statements
 
 ### `GET /v1/accounts/:accountId/statement?from=2026-01-01&to=2026-12-31`
 
-Returns opening balance, closing balance, total debits, total credits, and ledger entries.
+Requires a customer bearer token for the account owner. Returns opening balance, closing balance, total debits, total credits, and ledger entries.
 
 ## Admin Operations
 
-Admin protected sandbox routes use the `x-admin-id` header. Production buyers must replace this with real admin auth middleware.
+Admin protected sandbox routes use the bearer token returned by `POST /v1/auth/admin/login`. Production buyers must replace this with hardened admin identity, MFA, and authorization middleware.
 
 ### `GET /v1/admin/users`
 
@@ -168,6 +209,10 @@ Lists admin users.
 ### `GET /v1/admin/audit-events`
 
 Lists audit events.
+
+### `GET /v1/admin/reconciliation/summary`
+
+Returns sandbox reconciliation totals for transfer status counts, ledger debit/credit totals, notification outbox count, and provider-settlement readiness.
 
 ### `GET /v1/admin/kyc-reviews`
 
@@ -178,7 +223,7 @@ Lists KYC review cases.
 Header:
 
 ```text
-x-admin-id: adm_002
+Authorization: Bearer <admin-session-token>
 ```
 
 Body:
@@ -231,7 +276,7 @@ Reverses a successful transfer through a credit ledger entry.
 
 ### `GET /v1/notifications?customerId=cus_001`
 
-Lists queued notification records for a customer.
+Requires that customer's bearer token. Lists queued notification records for a customer.
 
 ## Reference Data
 

@@ -30,6 +30,8 @@ export type AuditEventAction =
   | "kyc.reject"
   | "beneficiary.create"
   | "beneficiary.disable"
+  | "funding.intent_create"
+  | "payout.dispatch_create"
   | "transfer.create"
   | "transfer.reverse"
   | SecurityEventType
@@ -108,6 +110,7 @@ export interface CustomerUser {
   id: string;
   customerId: string;
   email: string;
+  passwordHash: string;
   phone: string;
   active: boolean;
   createdAt: string;
@@ -137,6 +140,7 @@ export interface LedgerEntry {
 }
 
 export interface TransferInstruction {
+  customerId?: string;
   sourceAccountId: string;
   amountKobo: number;
   beneficiaryName: string;
@@ -195,6 +199,7 @@ export interface AdminUser {
   id: string;
   name: string;
   email: string;
+  passwordHash: string;
   role: AdminRole;
   active: boolean;
   createdAt: string;
@@ -280,7 +285,15 @@ export interface TransferRiskAssessment {
 
 export const rolePermissions: Record<AdminRole, string[]> = {
   super_admin: ["*"],
-  operations_manager: ["accounts:write", "transfers:reverse", "transfers:review", "audit:read", "kyc:read"],
+  operations_manager: [
+    "accounts:write",
+    "transfers:reverse",
+    "transfers:review",
+    "transfers:read",
+    "audit:read",
+    "kyc:read",
+    "customers:read",
+  ],
   compliance_officer: ["kyc:write", "kyc:read", "audit:read", "accounts:freeze"],
   support_agent: ["customers:read", "accounts:read", "kyc:read"],
   auditor: ["audit:read", "customers:read", "accounts:read", "transfers:read"],

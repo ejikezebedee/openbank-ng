@@ -1,5 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
+import { requireCustomerSession } from "../services/sessionAuth.js";
 import { createTransfer } from "../services/transfers.js";
 
 const transferSchema = z.object({
@@ -16,9 +17,17 @@ const transferSchema = z.object({
 });
 
 export async function registerTransferRoutes(app: FastifyInstance) {
-  app.get("/v1/transfers", async () => ({
-    data: app.openBankStore.transfers,
-  }));
+  app.get("/v1/transfers", async (request, reply) => {
+    try {
+      const session = requireCustomerSession(request.headers.authorization);
+      const ownedAccountIds = new Set(
+        app.openBankStore.accounts.filter((account) => account.customerId === session.customerId).map((account) => account.id),
+      );
+      return { data: app.openBankStore.transfers.filter((transfer) => ownedAccountIds.has(transfer.sourceAccountId)) };
+    } catch (error) {
+      return reply.code(401).send({ error: "CUSTOMER_AUTH_REQUIRED", message: (error as Error).message });
+    }
+  });
 
   app.post("/v1/transfers", async (request, reply) => {
     const parsed = transferSchema.safeParse(request.body);
@@ -30,8 +39,13 @@ export async function registerTransferRoutes(app: FastifyInstance) {
       });
     }
 
-    const transfer = createTransfer(parsed.data);
-    const statusCode = transfer.status === "failed" ? 409 : 201;
-    return reply.code(statusCode).send({ data: transfer });
+    try {
+      const session = requireCustomerSession(request.headers.authorization);
+      const transfer = createTransfer({ ...parsed.data, customerId: session.customerId });
+      const statusCode = transfer.status === "failed" ? 409 : 201;
+      return reply.code(statusCode).send({ data: transfer });
+    } catch (error) {
+      return reply.code(401).send({ error: "CUSTOMER_AUTH_REQUIRED", message: (error as Error).message });
+    }
   });
 }

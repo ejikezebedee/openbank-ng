@@ -2,19 +2,19 @@
 
 ## v0.1.0 Package Candidate
 
-OpenBank NG is a fullstack Nigerian banking and wallet source-code package.
+OpenBank NG is a Nigerian banking and wallet infrastructure foundation.
 
 ### Included
 
-- Customer banking web app.
-- Admin operations console.
+- Customer banking web app with API-backed auth, account, transfer, statement, beneficiary, notification, device, and OTP workflow controls.
+- Admin operations console with API-backed auth, customer/KYC review, transfer review, release/reject, audit, and reconciliation workflow controls.
 - Backend API service.
 - Shared banking domain package.
 - PostgreSQL-compatible schema.
 - NGN/kobo money handling.
 - Nigerian bank-code support.
 - BVN/NIN-ready KYC workflow.
-- Account, ledger, transfer, reversal, statement, beneficiary, audit, risk, OTP, device, and notification workflows.
+- Account, ledger, funding intent, payout dispatch, transfer, reversal, statement, beneficiary, audit, risk, OTP, device, notification, and reconciliation workflows.
 - Setup, deployment, API, troubleshooting, demo, buyer handoff, sales, Gumroad listing, buyer FAQ, launch assets, post-purchase email, support policy, pricing, commercial terms, and release checklist documentation.
 - Changelog, security policy, package manifest, GitHub delivery guide, and final release audit.
 - Marketplace launch checklist, buyer fulfillment checklist, commercial decision record, and buyer access SOP for public-sale and delivery readiness review.
@@ -25,7 +25,7 @@ OpenBank NG is a fullstack Nigerian banking and wallet source-code package.
 
 - Build passes.
 - Automated tests pass.
-- API smoke tests have covered customer auth, beneficiaries, statements, OTP, device trust, transfer risk hold, admin release, and notifications.
+- Automated tests cover customer/admin auth boundaries, protected customer/admin read routes, statements, notification listing, OTP redaction and verification, device trust, transfer idempotency, transfer risk hold, admin review release/rejection, funding/payout provider workflow records, reconciliation summary protection, frozen-account release protection, reversal ledger entries, and selected service behavior.
 - Buyer-facing documentation uses portable paths and states the commercial compliance boundary.
 - Marketplace listing materials state the software-only boundary and public-sale approval gate.
 - Buyer fulfillment materials state the access, support, and compliance boundaries.
@@ -40,15 +40,15 @@ The package is not a licensed bank and is not ready for live regulated use witho
 
 Production buyers must complete:
 
-- Real auth and password/PIN hashing.
+- Production identity provider, MFA, password/PIN policy, and secret rotation.
 - PostgreSQL repository wiring.
 - Redis-backed queues and rate limits.
 - KYC provider integration.
 - OTP and notification provider integration.
-- Funding and payout provider integration.
+- Live funding and payout provider integration.
 - Webhook signature verification.
 - True production double-entry ledger enforcement.
-- Reconciliation reports against licensed provider settlement records.
+- Reconciliation reports against live licensed provider settlement records.
 - Dispute/refund case management for merchant workflows.
 - Monitoring, logging, incident response, and backup procedures.
 - Legal, compliance, security, and provider approvals.

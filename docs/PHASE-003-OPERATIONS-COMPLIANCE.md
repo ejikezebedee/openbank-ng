@@ -25,7 +25,7 @@ Status: completed foundation pass, not production complete.
 - `POST /v1/admin/customers/:customerId/kyc-decision`
 - `POST /v1/admin/transfers/:transferId/reverse`
 
-Admin protected routes use `x-admin-id` in the current sandbox implementation. Production deployments should replace this with signed JWT session middleware, refresh-token rotation, device/session tracking, and buyer-approved identity controls.
+Admin protected routes use signed sandbox bearer sessions in the current implementation. Production deployments should replace this with hardened JWT/session middleware, refresh-token rotation, device/session tracking, MFA, and buyer-approved identity controls.
 
 ## Verification performed
 

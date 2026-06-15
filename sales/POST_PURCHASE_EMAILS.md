@@ -31,7 +31,7 @@ Hello,
 
 Please confirm these first-run checks:
 
-- `npm install` completed.
+- `npm install --include=dev` completed.
 - `npm run build` passed.
 - `npm test` passed.
 - `.env.example` was copied into your local `.env`.
@@ -73,4 +73,3 @@ We will review the request and respond with the final decision under the approve
 
 Regards,
 OpenBank NG Delivery Team
-

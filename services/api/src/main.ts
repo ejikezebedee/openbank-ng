@@ -8,6 +8,7 @@ import { registerAdminRoutes } from "./routes/admin.js";
 import { registerAuthRoutes } from "./routes/auth.js";
 import { registerBeneficiaryRoutes } from "./routes/beneficiaries.js";
 import { registerNotificationRoutes } from "./routes/notifications.js";
+import { registerProviderWorkflowRoutes } from "./routes/providerWorkflows.js";
 import { registerSecurityRoutes } from "./routes/security.js";
 import { registerStatementRoutes } from "./routes/statements.js";
 import "./types.js";
@@ -28,6 +29,7 @@ await app.register(registerBeneficiaryRoutes);
 await app.register(registerStatementRoutes);
 await app.register(registerSecurityRoutes);
 await app.register(registerNotificationRoutes);
+await app.register(registerProviderWorkflowRoutes);
 
 app.get("/health", async () => ({
   status: "ok",

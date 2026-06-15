@@ -1,7 +1,15 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { store } from "../data/store.js";
-import { createTransfer, reverseTransfer } from "./transfers.js";
+import { createOtpChallenge, verifyOtpChallenge } from "./security.js";
+import { createTransfer, releaseHeldTransfer, reverseTransfer } from "./transfers.js";
+
+function createVerifiedTransferOtp(): string {
+  const challenge = createOtpChallenge("cus_001", "transfer", "acct_001");
+  const storedChallenge = store.otpChallenges.find((entry) => entry.id === challenge.id);
+  verifyOtpChallenge(challenge.id, storedChallenge?.code ?? "", "cus_001");
+  return challenge.id;
+}
 
 test("creates a transfer once for the same idempotency key", () => {
   const beforeCount = store.transfers.length;
@@ -15,7 +23,7 @@ test("creates a transfer once for the same idempotency key", () => {
     channel: "nip_mock" as const,
     idempotencyKey: "automated-test-key-0001",
     customerDeviceId: "dev_001",
-    otpChallengeId: "otp_seed_transfer",
+    otpChallengeId: createVerifiedTransferOtp(),
   };
 
   const first = createTransfer(instruction);
@@ -37,7 +45,7 @@ test("reverses a successful transfer with a credit ledger entry", () => {
     channel: "nip_mock",
     idempotencyKey: "automated-test-key-0002",
     customerDeviceId: "dev_001",
-    otpChallengeId: "otp_seed_transfer",
+    otpChallengeId: createVerifiedTransferOtp(),
   });
 
   const reversed = reverseTransfer(transfer.id, "Automated reversal test", "adm_001");
@@ -63,4 +71,54 @@ test("holds risky transfers for manual security review", () => {
   assert.equal(transfer.status, "requires_review");
   assert.equal(transfer.riskLevel, "high");
   assert.deepEqual(transfer.riskReasons, ["untrusted_device", "otp_not_verified"]);
+});
+
+test("rejects idempotency key reuse for different transfer requests", () => {
+  const instruction = {
+    sourceAccountId: "acct_001",
+    amountKobo: 110_000,
+    beneficiaryName: "First Idempotency Beneficiary",
+    beneficiaryAccountNumber: "0123456789",
+    beneficiaryBankCode: "000027",
+    narration: "Idempotency fingerprint test",
+    channel: "nip_mock" as const,
+    idempotencyKey: "automated-test-key-idempotency-0004",
+    customerDeviceId: "dev_001",
+    otpChallengeId: createVerifiedTransferOtp(),
+  };
+
+  createTransfer(instruction);
+
+  assert.throws(
+    () => createTransfer({ ...instruction, amountKobo: 120_000 }),
+    /Idempotency key has already been used/,
+  );
+});
+
+test("does not release held transfers while the source account is frozen", () => {
+  const account = store.accounts.find((entry) => entry.id === "acct_001");
+  assert.ok(account);
+
+  const originalStatus = account.status;
+  account.status = "frozen";
+
+  try {
+    const transfer = createTransfer({
+      sourceAccountId: "acct_001",
+      amountKobo: 50_000,
+      beneficiaryName: "Frozen Account Beneficiary",
+      beneficiaryAccountNumber: "0123456789",
+      beneficiaryBankCode: "000027",
+      narration: "Frozen account release test",
+      channel: "nip_mock",
+      idempotencyKey: "automated-test-key-frozen-0005",
+      customerDeviceId: "dev_001",
+      otpChallengeId: createVerifiedTransferOtp(),
+    });
+
+    assert.equal(transfer.status, "requires_review");
+    assert.throws(() => releaseHeldTransfer(transfer.id, "adm_001"), /Source account must be active/);
+  } finally {
+    account.status = originalStatus;
+  }
 });

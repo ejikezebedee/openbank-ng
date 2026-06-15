@@ -13,6 +13,7 @@ import type {
   OtpChallenge,
   TransferRecord,
 } from "@openbank-ng/shared";
+import { sandboxPasswordHash } from "../services/sandboxCrypto.js";
 
 export interface OpenBankStore {
   customers: CustomerProfile[];
@@ -28,7 +29,7 @@ export interface OpenBankStore {
   customerDevices: CustomerDevice[];
   otpChallenges: OtpChallenge[];
   notifications: NotificationMessage[];
-  idempotencyKeys: Map<string, string>;
+  idempotencyKeys: Map<string, { transferId: string; fingerprint: string }>;
 }
 
 const now = new Date().toISOString();
@@ -66,6 +67,7 @@ export const store: OpenBankStore = {
       id: "cu_001",
       customerId: "cus_001",
       email: "adaeze@example.com",
+      passwordHash: sandboxPasswordHash("OpenBankDemo!2026"),
       phone: "+2348012345678",
       active: true,
       createdAt: now,
@@ -101,6 +103,7 @@ export const store: OpenBankStore = {
       id: "adm_001",
       name: "Operations Manager",
       email: "ops@openbankng.example",
+      passwordHash: sandboxPasswordHash("OpenBankAdmin!2026"),
       role: "operations_manager",
       active: true,
       createdAt: now,
@@ -109,6 +112,7 @@ export const store: OpenBankStore = {
       id: "adm_002",
       name: "Compliance Officer",
       email: "compliance@openbankng.example",
+      passwordHash: sandboxPasswordHash("OpenBankCompliance!2026"),
       role: "compliance_officer",
       active: true,
       createdAt: now,
@@ -152,19 +156,7 @@ export const store: OpenBankStore = {
       createdAt: now,
     },
   ],
-  otpChallenges: [
-    {
-      id: "otp_seed_transfer",
-      customerId: "cus_001",
-      purpose: "transfer",
-      targetId: "acct_001",
-      code: "123456",
-      verified: true,
-      expiresAt: "2099-01-01T00:00:00.000Z",
-      createdAt: now,
-      verifiedAt: now,
-    },
-  ],
+  otpChallenges: [],
   notifications: [],
   idempotencyKeys: new Map(),
 };

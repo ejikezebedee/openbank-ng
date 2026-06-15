@@ -12,8 +12,8 @@ OpenBank NG is designed as a serious source-code foundation with buyer-visible
 apps, API, data model, operations workflows, and production integration
 boundaries:
 
-- Customer banking app
-- Admin operations dashboard
+- Customer banking app with API-backed auth, accounts, transfers, beneficiaries, statements, notifications, OTP, and device trust flows
+- Admin operations dashboard with API-backed auth, customers, KYC review, transfer review, release/reject, audit, and reconciliation flows
 - Backend API
 - PostgreSQL database
 - Ledger posting model with reversal support
@@ -23,11 +23,11 @@ boundaries:
 - KYC workflow with BVN/NIN-ready fields
 - Tiered limits
 - Trusted device, OTP, and transfer-risk review controls
-- Transfer and funding workflows
+- Transfer workflow with sandbox funding-intent and payout-dispatch provider handoff surfaces
 - Notification outbox for banking events
-- Provider adapter layer
-- Transaction receipts
-- Reconciliation support
+- Provider integration extension points documented for licensed buyer implementation
+- Transfer status and ledger records, with receipt generation marked as a roadmap item
+- Reconciliation summary workflow with live provider settlement reconciliation marked as buyer hardening work
 - Audit logs
 - Sales, setup, and release documentation
 
@@ -63,7 +63,7 @@ OpenBank NG is structured around Nigerian fintech requirements:
 - BVN/NIN-ready onboarding flow
 - KYC tiering
 - NIP/NIBSS-style transaction status model
-- Provider adapters for Paystack, Monnify, Flutterwave, bank sponsors, and sandbox rails
+- Documented integration points for Paystack, Monnify, Flutterwave, bank sponsors, and sandbox rails
 
 ## Commercial Boundary
 
@@ -79,7 +79,7 @@ The buyer must connect licensed providers and complete legal, compliance, securi
 
 ## Development Status
 
-Initial product blueprint and GitHub-ready structure are in progress.
+Fullstack package candidate is implemented for controlled buyer review. Public launch remains gated by final MD approval of commercial terms, buyer access, repository visibility, support scope, and regulated-production caveats.
 
 See:
 
@@ -104,6 +104,7 @@ See:
 - [License Terms Draft](./docs/LICENSE_TERMS_DRAFT.md)
 - [Release Notes](./docs/RELEASE_NOTES.md)
 - [GitHub Delivery](./docs/GITHUB_DELIVERY.md)
+- [GitHub Buyer Access Model](./docs/GITHUB_BUYER_ACCESS_MODEL.md)
 - [Final Release Audit](./release/FINAL_RELEASE_AUDIT.md)
 - [Package Manifest](./release/PACKAGE_MANIFEST.md)
 - [Marketplace Launch Checklist](./release/MARKETPLACE_LAUNCH_CHECKLIST.md)

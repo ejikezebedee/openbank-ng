@@ -64,4 +64,4 @@ OpenBank NG should be sold as a serious fintech foundation, not as a licensed ba
 
 Suggested positioning:
 
-"A fullstack Nigerian banking and wallet source-code platform with customer app, admin console, API, ledger, KYC, transfer risk controls, and buyer-ready documentation."
+"A Nigerian banking and wallet infrastructure foundation with customer app, admin console, API, ledger, KYC, transfer risk controls, and buyer-ready documentation."

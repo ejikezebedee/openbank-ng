@@ -5,6 +5,7 @@ import {
   type TransferInstruction,
   type TransferRecord,
 } from "@openbank-ng/shared";
+import { createHash } from "node:crypto";
 import { store } from "../data/store.js";
 import { appendAuditEvent } from "./audit.js";
 import { getAccount, postCredit, postDebit } from "./ledger.js";
@@ -17,17 +18,38 @@ function makeReference(): string {
   return `OBNG${Date.now()}${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
 }
 
+function makeInstructionFingerprint(instruction: TransferInstruction): string {
+  return createHash("sha256")
+    .update(
+      JSON.stringify({
+        customerId: instruction.customerId,
+        sourceAccountId: instruction.sourceAccountId,
+        amountKobo: instruction.amountKobo,
+        beneficiaryName: instruction.beneficiaryName,
+        beneficiaryAccountNumber: instruction.beneficiaryAccountNumber,
+        beneficiaryBankCode: instruction.beneficiaryBankCode,
+        narration: instruction.narration,
+        channel: instruction.channel,
+      }),
+    )
+    .digest("hex");
+}
+
 export function createTransfer(instruction: TransferInstruction): TransferRecord {
   return inMemoryUnitOfWork.transaction("create_transfer", () => createTransferInsideTransaction(instruction));
 }
 
 function createTransferInsideTransaction(instruction: TransferInstruction): TransferRecord {
-  const existingTransferId = store.idempotencyKeys.get(instruction.idempotencyKey);
-  const existingTransfer = existingTransferId
-    ? store.transfers.find((transfer) => transfer.id === existingTransferId)
+  const fingerprint = makeInstructionFingerprint(instruction);
+  const existingIdempotency = store.idempotencyKeys.get(instruction.idempotencyKey);
+  const existingTransfer = existingIdempotency
+    ? store.transfers.find((transfer) => transfer.id === existingIdempotency.transferId)
     : undefined;
 
   if (existingTransfer) {
+    if (existingIdempotency?.fingerprint !== fingerprint) {
+      throw new Error("Idempotency key has already been used for a different transfer request.");
+    }
     return existingTransfer;
   }
 
@@ -47,6 +69,9 @@ function createTransferInsideTransaction(instruction: TransferInstruction): Tran
   if (!account || !customer) {
     transfer.status = "failed";
     transfer.failureReason = "Source account or customer was not found.";
+  } else if (instruction.customerId && account.customerId !== instruction.customerId) {
+    transfer.status = "failed";
+    transfer.failureReason = "Source account does not belong to the authenticated customer.";
   } else if (account.status !== "active") {
     transfer.status = "requires_review";
     transfer.failureReason = "Source account is not active.";
@@ -93,7 +118,7 @@ function createTransferInsideTransaction(instruction: TransferInstruction): Tran
         relatedEntityId: transfer.id,
       });
       store.transfers.push(transfer);
-      store.idempotencyKeys.set(instruction.idempotencyKey, transfer.id);
+      store.idempotencyKeys.set(instruction.idempotencyKey, { transferId: transfer.id, fingerprint });
       return transfer;
     }
 
@@ -120,7 +145,7 @@ function createTransferInsideTransaction(instruction: TransferInstruction): Tran
   }
 
   store.transfers.push(transfer);
-  store.idempotencyKeys.set(instruction.idempotencyKey, transfer.id);
+  store.idempotencyKeys.set(instruction.idempotencyKey, { transferId: transfer.id, fingerprint });
   return transfer;
 }
 
@@ -182,6 +207,10 @@ export function releaseHeldTransfer(transferId: string, actorId: string): Transf
 
     if (!account || account.availableBalanceKobo < transfer.amountKobo) {
       throw new Error("Source account cannot fund the transfer.");
+    }
+
+    if (account.status !== "active") {
+      throw new Error("Source account must be active before a held transfer can be released.");
     }
 
     postDebit(account, transfer.id, transfer.amountKobo, transfer.narration || "OpenBank NG transfer release");

@@ -14,7 +14,7 @@ Phase 11 adds the marketplace product-cover image for OpenBank NG and prepares i
 
 ## Image Positioning
 
-The image presents OpenBank NG as a premium fullstack Nigerian banking and wallet source-code product. It avoids regulated-institution logos, banking-license claims, public-agency seals, NIBSS marks, card-network marks, and real bank branding.
+The image presents OpenBank NG as a premium Nigerian banking and wallet infrastructure foundation. It avoids regulated-institution logos, banking-license claims, public-agency seals, NIBSS marks, card-network marks, and real bank branding.
 
 ## Usage
 
@@ -39,4 +39,3 @@ Phase 11 verification requires:
 ## Result
 
 Phase 11 is complete when the product image asset is committed, pushed to GitHub, and the working tree is clean.
-

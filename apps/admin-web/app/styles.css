@@ -17,12 +17,21 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  font-family: Aptos, ui-sans-serif, system-ui, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
 }
 
 button {
-  font: inherit;
   cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
 }
 
 .console {
@@ -32,7 +41,9 @@ button {
 
 .masthead,
 .panelHead,
-.status {
+.status,
+.loginStrip,
+.decisionRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,7 +51,7 @@ button {
 }
 
 .masthead {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .masthead p {
@@ -71,6 +82,59 @@ h1 {
   font-weight: 800;
 }
 
+.loginStrip {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) minmax(200px, 1fr) auto auto;
+  align-items: end;
+  margin-bottom: 18px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+input {
+  min-height: 42px;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 12px;
+  background: white;
+  color: var(--ink);
+}
+
+.loginStrip button,
+.panelHead button,
+.risk button,
+.decisionRow button {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--green);
+  color: white;
+  padding: 0 16px;
+  font-weight: 800;
+}
+
+.loginStrip .ghost,
+.panelHead button {
+  background: #e9f2ee;
+  color: var(--green);
+  border: 1px solid var(--line);
+}
+
 .queueGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(150px, 1fr));
@@ -86,7 +150,7 @@ h1 {
 }
 
 .metric {
-  min-height: 130px;
+  min-height: 126px;
   padding: 18px;
   display: grid;
   align-content: space-between;
@@ -101,7 +165,7 @@ h1 {
 }
 
 .metric strong {
-  font-size: 30px;
+  font-size: 28px;
 }
 
 .workGrid {
@@ -121,27 +185,23 @@ h1 {
   padding: 22px;
 }
 
-.panelHead button,
-.risk button {
-  min-height: 42px;
-  border: 0;
-  border-radius: 8px;
-  background: var(--green);
-  color: white;
-  padding: 0 16px;
-  font-weight: 800;
+.tableWrap {
+  width: 100%;
+  overflow-x: auto;
 }
 
 table {
   width: 100%;
+  min-width: 760px;
   border-collapse: collapse;
 }
 
 th,
 td {
   text-align: left;
-  padding: 15px 8px;
+  padding: 14px 8px;
   border-bottom: 1px solid var(--line);
+  vertical-align: middle;
 }
 
 th {
@@ -153,7 +213,7 @@ th {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 92px;
+  min-width: 84px;
   padding: 7px 10px;
   border-radius: 999px;
   background: #e8f4ef;
@@ -188,41 +248,99 @@ th {
   color: #111;
 }
 
+.decisionRow {
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.decisionRow button {
+  min-width: 42px;
+  padding: 0 10px;
+}
+
 .muted {
   color: var(--muted);
   line-height: 1.55;
 }
 
-.controlRow {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  align-items: center;
-  gap: 12px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-}
-
+.customerList,
 .auditList {
   display: grid;
   gap: 10px;
 }
 
+.customerList article,
 .auditList span {
+  display: grid;
+  gap: 6px;
   padding: 12px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fbfdfb;
 }
 
-@media (max-width: 980px) {
+.customerList article {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.customerList span,
+.auditList span {
+  color: var(--muted);
+}
+
+.auditList b {
+  display: block;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.recon {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #eef6f2;
+  color: var(--green);
+  font-weight: 800;
+}
+
+.statusBar {
+  position: sticky;
+  bottom: 0;
+  margin-top: 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #12211c;
+  color: #e9f2ed;
+  font-weight: 700;
+}
+
+.spin {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1040px) {
   .queueGrid,
   .workGrid,
-  .governanceGrid {
+  .governanceGrid,
+  .loginStrip,
+  .customerList article {
     grid-template-columns: 1fr;
   }
 
   .masthead {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .decisionRow {
+    flex-wrap: wrap;
   }
 }

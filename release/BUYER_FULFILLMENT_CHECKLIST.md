@@ -38,7 +38,7 @@ Send or provide access to:
 Ask the buyer to verify:
 
 - Node.js 20+ is installed.
-- Dependencies install with `npm install`.
+- Dependencies install with `npm install --include=dev`.
 - Build passes with `npm run build`.
 - Tests pass with `npm test`.
 - `.env.example` has been copied into a local `.env`.
@@ -59,4 +59,3 @@ Record after delivery:
 - License version:
 - Support term:
 - Notes:
-

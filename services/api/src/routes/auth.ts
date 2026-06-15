@@ -2,6 +2,8 @@ import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { store } from "../data/store.js";
 import { appendAuditEvent } from "../services/audit.js";
+import { verifySandboxPassword } from "../services/sandboxCrypto.js";
+import { createSessionToken } from "../services/sessionAuth.js";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -19,7 +21,7 @@ export async function registerAuthRoutes(app: FastifyInstance) {
     const user = store.customerUsers.find((entry) => entry.email === parsed.data.email && entry.active);
     const customer = user ? store.customers.find((entry) => entry.id === user.customerId) : undefined;
 
-    if (!user || !customer) {
+    if (!user || !customer || !verifySandboxPassword(parsed.data.password, user.passwordHash)) {
       return reply.code(401).send({ error: "INVALID_CREDENTIALS" });
     }
 
@@ -37,7 +39,7 @@ export async function registerAuthRoutes(app: FastifyInstance) {
         customer,
         session: {
           tokenType: "Bearer",
-          accessToken: `sandbox.${customer.id}.replace-with-jwt-provider`,
+          accessToken: createSessionToken({ kind: "customer", customerId: customer.id, userId: user.id }),
           expiresInSeconds: 900,
         },
       },
@@ -53,7 +55,7 @@ export async function registerAuthRoutes(app: FastifyInstance) {
 
     const admin = store.adminUsers.find((entry) => entry.email === parsed.data.email && entry.active);
 
-    if (!admin) {
+    if (!admin || !verifySandboxPassword(parsed.data.password, admin.passwordHash)) {
       return reply.code(401).send({ error: "INVALID_CREDENTIALS" });
     }
 
@@ -71,7 +73,7 @@ export async function registerAuthRoutes(app: FastifyInstance) {
         admin,
         session: {
           tokenType: "Bearer",
-          accessToken: `sandbox.${admin.id}.replace-with-jwt-provider`,
+          accessToken: createSessionToken({ kind: "admin", adminId: admin.id, role: admin.role }),
           expiresInSeconds: 900,
         },
       },

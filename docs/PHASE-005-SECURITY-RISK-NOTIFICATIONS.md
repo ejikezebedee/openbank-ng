@@ -27,7 +27,7 @@ Phase 5 adds the controls needed before a banking platform can be treated as mor
 
 ## Provider Replacement Points
 
-The sandbox OTP code is fixed for testability. Production buyers must replace it with a licensed SMS, email, push, or authenticator provider. Notification delivery is intentionally queued in memory for now; production buyers should connect a worker and durable queue.
+Sandbox OTP challenges generate six-digit codes and API responses redact the code. Production buyers must replace sandbox delivery with a licensed SMS, email, push, or authenticator provider. Notification delivery is intentionally queued in memory for now; production buyers should connect a worker and durable queue.
 
 Recommended production adapters:
 
@@ -54,7 +54,7 @@ Phase 5 verification passed:
 
 - `npm run build`
 - `npm test`
-- Live API smoke for trusted device, OTP verification, successful low-risk transfer, high-risk transfer hold, admin release, and notification listing.
+- Fastify route smoke for trusted device and OTP authentication boundaries, OTP response redaction, successful low-risk transfer, high-risk transfer hold, protected notification listing, admin review queue, admin release, and admin rejection.
 
 ## Commercial Boundary
 

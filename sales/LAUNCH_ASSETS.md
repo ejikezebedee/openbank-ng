@@ -2,11 +2,11 @@
 
 ## One-Line Pitch
 
-OpenBank NG is a fullstack Nigerian banking and wallet source-code platform with customer app, admin console, API, ledger workflows, KYC-ready fields, transfer controls, and buyer documentation.
+OpenBank NG is a Nigerian banking and wallet infrastructure foundation with customer app, admin console, API, ledger workflows, KYC-ready fields, transfer controls, and buyer documentation.
 
 ## Short Launch Post
 
-OpenBank NG is now packaged for buyer review: a fullstack Nigerian banking and wallet source-code platform for fintech founders, agencies, cooperatives, and licensed operators.
+OpenBank NG is now packaged for buyer review: a Nigerian banking and wallet infrastructure foundation for fintech founders, agencies, cooperatives, and licensed operators.
 
 It includes customer banking, admin operations, backend API, shared banking primitives, PostgreSQL schema, NGN/kobo handling, KYC-ready fields, ledger and transfer workflows, risk review, notifications, audit boundaries, and setup/deployment/API documentation.
 

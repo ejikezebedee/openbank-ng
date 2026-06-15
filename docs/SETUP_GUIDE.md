@@ -14,7 +14,7 @@ The current sandbox API runs with in-memory repositories so buyers can inspect t
 ## Local Setup
 
 ```bash
-npm install
+npm install --include=dev
 cp .env.example .env
 npm run build
 npm test
@@ -55,9 +55,11 @@ The sandbox seed data includes:
 - Customer: `adaeze@example.com`
 - Admin operations manager: `ops@openbankng.example`
 - Admin compliance officer: `compliance@openbankng.example`
-- Sandbox OTP code: `123456`
+- Customer password: `OpenBankDemo!2026`
+- Admin operations password: `OpenBankAdmin!2026`
+- Admin compliance password: `OpenBankCompliance!2026`
 
-Passwords are accepted only by the sandbox login boundary. Production buyers must connect a real password/PIN hashing and identity provider flow before live use.
+Sandbox passwords are hashed in the seed store and sandbox sessions are signed bearer tokens. Production buyers must still connect a hardened identity provider, MFA, password/PIN policy, and secret rotation before live use.
 
 ## First Verification
 

@@ -5,14 +5,14 @@
 Run:
 
 ```bash
-npm install
+npm install --include=dev
 ```
 
 If install still fails:
 
 - Confirm Node.js 20 or newer is installed.
 - Delete `node_modules` and `package-lock.json` only if the buyer intentionally wants a fresh dependency resolution.
-- Re-run `npm install`.
+- Re-run `npm install --include=dev`.
 
 ## Build Fails
 
@@ -40,7 +40,7 @@ Check:
 
 ## Login Fails
 
-The sandbox login boundary checks the seed user records only. It does not verify production password hashes yet.
+The sandbox login boundary checks the seed user records and sandbox password hashes.
 
 Seed identities:
 
@@ -48,7 +48,7 @@ Seed identities:
 - `ops@openbankng.example`
 - `compliance@openbankng.example`
 
-Production buyers must implement password/PIN verification and proper session issuance.
+Production buyers must replace the sandbox credential store with their identity provider, MFA, password/PIN policy, and session issuance.
 
 ## Transfer Returns `requires_review`
 
@@ -85,7 +85,7 @@ Check:
 
 Check:
 
-- `x-admin-id` header is present in sandbox.
+- `Authorization: Bearer <admin-session-token>` is present.
 - Admin user is active.
 - Admin role has the required permission.
 

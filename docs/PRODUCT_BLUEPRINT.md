@@ -72,7 +72,7 @@ partners.
 - Transfer orchestration
 - Funding orchestration
 - Withdrawal orchestration
-- Provider adapter layer
+- Provider integration layer
 - Webhook ingestion
 - Idempotency controls
 - Admin authorization

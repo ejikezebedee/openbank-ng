@@ -8,6 +8,8 @@ build/
 !.env.example
 coverage/
 *.log
+*.tsbuildinfo
 *.sqlite
 *.db
 tmp/
+.runtime/

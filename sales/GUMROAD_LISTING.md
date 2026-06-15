@@ -76,7 +76,7 @@ release/                Release checklist, audit, and package manifest
 ## Setup Summary
 
 1. Install Node.js 20+.
-2. Install dependencies with `npm install`.
+2. Install dependencies with `npm install --include=dev`.
 3. Copy `.env.example` to `.env` and adjust local values.
 4. Run `npm run build`.
 5. Run `npm test`.

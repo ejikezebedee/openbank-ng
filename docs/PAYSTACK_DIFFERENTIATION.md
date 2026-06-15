@@ -59,8 +59,8 @@ OpenBank NG includes Nigerian-oriented primitives and workflows:
 - Admin approval flow.
 - Notification outbox.
 - Audit boundaries.
-- Reconciliation support.
-- Provider adapter design.
+- Reconciliation hardening path.
+- Provider integration design notes.
 
 These are the pieces buyers need when they want to build a fintech operating
 system, not only accept checkout payments.

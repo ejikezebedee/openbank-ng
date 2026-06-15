@@ -17,6 +17,8 @@
 ## Marketplace Assets
 
 - `assets/marketplace/openbank-ng-product-cover.png` - Primary product cover image for marketplace, GitHub, and sales-page use.
+- `artifacts/screenshots/customer-dashboard.png` - Customer portal verification screenshot.
+- `artifacts/screenshots/admin-console.png` - Admin console verification screenshot.
 
 ## API And Shared Code
 
@@ -44,6 +46,7 @@
 - `docs/LICENSE_TERMS_DRAFT.md`
 - `docs/RELEASE_NOTES.md`
 - `docs/GITHUB_DELIVERY.md`
+- `docs/GITHUB_BUYER_ACCESS_MODEL.md`
 - `docs/ROADMAP.md`
 
 ## Phase Reports
@@ -88,4 +91,5 @@
 - `.env`
 - Local logs.
 - Local temporary files.
+- Local runtime logs and PID files.
 - Any production secrets.

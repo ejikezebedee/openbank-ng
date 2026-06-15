@@ -1,5 +1,6 @@
 import type { OtpPurpose, TransferInstruction, TransferRiskAssessment } from "@openbank-ng/shared";
 import { kycTierDailyLimitsKobo } from "@openbank-ng/shared";
+import { randomInt } from "node:crypto";
 import { store } from "../data/store.js";
 import { appendAuditEvent } from "./audit.js";
 
@@ -44,12 +45,13 @@ export function registerTrustedDevice(customerId: string, label: string, fingerp
 }
 
 export function createOtpChallenge(customerId: string, purpose: OtpPurpose, targetId?: string) {
+  const code = randomInt(0, 1_000_000).toString().padStart(6, "0");
   const challenge = {
     id: makeId("otp"),
     customerId,
     purpose,
     targetId,
-    code: "123456",
+    code,
     verified: false,
     expiresAt: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
     createdAt: new Date().toISOString(),
@@ -65,13 +67,18 @@ export function createOtpChallenge(customerId: string, purpose: OtpPurpose, targ
     message: `OTP challenge created for ${purpose}.`,
   });
 
-  return challenge;
+  return redactOtpChallenge(challenge);
 }
 
-export function verifyOtpChallenge(challengeId: string, code: string) {
+export function verifyOtpChallenge(challengeId: string, code: string, customerId?: string) {
   const challenge = store.otpChallenges.find((entry) => entry.id === challengeId);
 
-  if (!challenge || challenge.code !== code || new Date(challenge.expiresAt).getTime() < Date.now()) {
+  if (
+    !challenge ||
+    (customerId && challenge.customerId !== customerId) ||
+    challenge.code !== code ||
+    new Date(challenge.expiresAt).getTime() < Date.now()
+  ) {
     throw new Error("OTP challenge is invalid or expired.");
   }
 
@@ -86,17 +93,25 @@ export function verifyOtpChallenge(challengeId: string, code: string) {
     message: `OTP challenge verified for ${challenge.purpose}.`,
   });
 
-  return challenge;
+  return redactOtpChallenge(challenge);
 }
 
 export function assessTransferRisk(instruction: TransferInstruction): TransferRiskAssessment {
   const account = store.accounts.find((entry) => entry.id === instruction.sourceAccountId);
   const customer = account ? store.customers.find((entry) => entry.id === account.customerId) : undefined;
   const trustedDevice = instruction.customerDeviceId
-    ? store.customerDevices.find((device) => device.id === instruction.customerDeviceId && device.trusted)
+    ? store.customerDevices.find(
+        (device) => device.id === instruction.customerDeviceId && device.customerId === account?.customerId && device.trusted,
+      )
     : undefined;
   const verifiedOtp = instruction.otpChallengeId
-    ? store.otpChallenges.find((challenge) => challenge.id === instruction.otpChallengeId && challenge.verified)
+    ? store.otpChallenges.find(
+        (challenge) =>
+          challenge.id === instruction.otpChallengeId &&
+          challenge.customerId === account?.customerId &&
+          challenge.targetId === instruction.sourceAccountId &&
+          challenge.verified,
+      )
     : undefined;
 
   let score = 0;
@@ -139,4 +154,9 @@ export function assessTransferRisk(instruction: TransferInstruction): TransferRi
     requiresOtp: !verifiedOtp || score >= 25,
     requiresManualReview: score >= 50,
   };
+}
+
+function redactOtpChallenge<T extends { code: string }>(challenge: T): Omit<T, "code"> {
+  const { code: _code, ...safeChallenge } = challenge;
+  return safeChallenge;
 }

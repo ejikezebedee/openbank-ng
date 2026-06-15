@@ -44,11 +44,11 @@ rails.
 - Nigerian bank-code support
 - BVN/NIN-ready KYC workflow
 - Wallet/account system
-- Transfers, funding, withdrawals, fees, reversals
-- Provider adapter layer
-- Transaction receipts
+- Transfer and reversal workflow foundation
+- Provider integration points for licensed buyer implementation
+- Transfer status and ledger records
 - Audit logs
-- Reconciliation workflow
+- Reconciliation hardening path
 - Setup guide
 - API documentation
 - Deployment guide

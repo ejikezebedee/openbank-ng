@@ -12,7 +12,7 @@ Show buyers that OpenBank NG is not a shallow fintech screen pack. It includes c
 
 ### 1. Opening
 
-"OpenBank NG is a fullstack Nigerian banking and wallet platform source-code package for fintech founders, agencies, licensed operators, and development teams."
+"OpenBank NG is a Nigerian banking and wallet infrastructure foundation for fintech founders, agencies, licensed operators, and development teams."
 
 "It is software only. Buyers handle licensing, compliance, regulated providers, security review, and live payment rail approval."
 
