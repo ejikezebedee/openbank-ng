@@ -1,6 +1,6 @@
 # OpenBank NG
 
-Complete fullstack banking and wallet platform for Nigeria.
+Investor-grade Nigerian banking and wallet infrastructure foundation.
 
 OpenBank NG is a commercial source-code product for fintech founders, agencies, developers, cooperatives, and licensed operators who need a serious Nigerian banking/wallet platform foundation.
 
@@ -8,13 +8,15 @@ This product is software only. Buyers are responsible for licensing, regulatory 
 
 ## Product Scope
 
-OpenBank NG is designed as a complete end-to-end platform:
+OpenBank NG is designed as a serious source-code foundation with buyer-visible
+apps, API, data model, operations workflows, and production integration
+boundaries:
 
 - Customer banking app
 - Admin operations dashboard
 - Backend API
 - PostgreSQL database
-- Double-entry ledger
+- Ledger posting model with reversal support
 - Wallet/account system
 - Nigerian bank directory and bank-code support
 - NGN/kobo money handling
@@ -92,6 +94,7 @@ See:
 - [Phase 10 Commercial Decision Gate](./docs/PHASE-010-COMMERCIAL-DECISION-GATE.md)
 - [Phase 11 Product Image Asset](./docs/PHASE-011-PRODUCT-IMAGE-ASSET.md)
 - [Phase 12 Buyer Deal Room](./docs/PHASE-012-BUYER-DEAL-ROOM.md)
+- [Phase 13 Commercial Product Integrity Audit](./docs/PHASE-013-COMMERCIAL-PRODUCT-INTEGRITY-AUDIT.md)
 - [Paystack Differentiation](./docs/PAYSTACK_DIFFERENTIATION.md)
 - [Setup Guide](./docs/SETUP_GUIDE.md)
 - [Deployment Guide](./docs/DEPLOYMENT_GUIDE.md)

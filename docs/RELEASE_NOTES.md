@@ -19,6 +19,7 @@ OpenBank NG is a fullstack Nigerian banking and wallet source-code package.
 - Changelog, security policy, package manifest, GitHub delivery guide, and final release audit.
 - Marketplace launch checklist, buyer fulfillment checklist, commercial decision record, and buyer access SOP for public-sale and delivery readiness review.
 - Marketplace product cover image for Gumroad, GitHub, sales-page, and launch-post use.
+- Phase 13 commercial product integrity audit with implemented-vs-hardening boundary.
 
 ### Verification
 
@@ -30,6 +31,8 @@ OpenBank NG is a fullstack Nigerian banking and wallet source-code package.
 - Buyer fulfillment materials state the access, support, and compliance boundaries.
 - Commercial decision materials keep price, license, refund, support, and access decisions gated by MD approval.
 - Product cover image avoids regulated-institution logos and approval claims.
+- Buyer-facing positioning has been corrected from broad "complete platform"
+  language to Nigerian banking and wallet infrastructure foundation.
 
 ### Known Production Gaps
 
@@ -44,5 +47,8 @@ Production buyers must complete:
 - OTP and notification provider integration.
 - Funding and payout provider integration.
 - Webhook signature verification.
+- True production double-entry ledger enforcement.
+- Reconciliation reports against licensed provider settlement records.
+- Dispute/refund case management for merchant workflows.
 - Monitoring, logging, incident response, and backup procedures.
 - Legal, compliance, security, and provider approvals.

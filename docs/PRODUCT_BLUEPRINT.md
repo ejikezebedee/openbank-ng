@@ -2,7 +2,7 @@
 
 ## Title
 
-OpenBank NG - Complete Fullstack Banking & Wallet Platform for Nigeria
+OpenBank NG - Nigerian Banking & Wallet Infrastructure Foundation
 
 ## Product Category
 
@@ -23,7 +23,9 @@ Building a Nigerian fintech/banking product from scratch is slow, expensive, and
 
 ## Promise
 
-OpenBank NG gives buyers a complete, production-style banking and wallet platform foundation they can customize, audit, and connect to their own licensed partners.
+OpenBank NG gives buyers a serious banking and wallet infrastructure foundation
+they can customize, audit, demonstrate, and connect to their own licensed
+partners.
 
 ## Core Product Modules
 
@@ -66,7 +68,7 @@ OpenBank NG gives buyers a complete, production-style banking and wallet platfor
 - User profiles
 - KYC workflow
 - Wallet/account service
-- Double-entry ledger
+- Ledger posting model with a production double-entry hardening path
 - Transfer orchestration
 - Funding orchestration
 - Withdrawal orchestration
@@ -99,7 +101,10 @@ OpenBank NG gives buyers a complete, production-style banking and wallet platfor
 
 ## Product Boundaries
 
-OpenBank NG is software only. It does not include a banking license, live payment processing authorization, production KYC/AML approval, direct NIBSS access, legal advice, or compliance certification.
+OpenBank NG is software only. It does not include a banking license, live
+payment processing authorization, production KYC/AML approval, direct NIBSS
+access, legal advice, compliance certification, or a production-ready regulated
+ledger.
 
 ## Commercial Deliverables
 

@@ -131,3 +131,12 @@
 - Buyer-facing pricing is aligned to EUR 5,000 / EUR 10,000 / EUR 20,000.
 - Code-review access is positioned as controlled evaluation only until license and payment are accepted.
 - Public sale, repository visibility, and buyer access remain gated by MD approval per deal.
+
+## Phase 13 Commercial Product Integrity Audit Notes
+
+- Product positioning is corrected to Nigerian banking and wallet infrastructure foundation.
+- Buyer-facing wording no longer presents the package as a licensed live payment gateway.
+- Current ledger implementation is described as a ledger posting model, not a completed production double-entry engine.
+- Production double-entry, provider integrations, regulated licensing, durable storage, reconciliation, and security review are listed as buyer hardening requirements.
+- Phase 13 audit file is present.
+- Commercial status remains controlled buyer review only until MD approves public sale and buyer access.

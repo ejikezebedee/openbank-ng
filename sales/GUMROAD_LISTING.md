@@ -2,7 +2,7 @@
 
 ## Product Title
 
-OpenBank NG - Fullstack Nigerian Banking & Wallet Platform
+OpenBank NG - Nigerian Banking & Wallet Infrastructure Foundation
 
 ## Product Image
 
@@ -35,7 +35,8 @@ This is software only. It does not include a banking license, direct payment-rai
 - Nigerian bank-code directory.
 - BVN/NIN-ready KYC fields.
 - Wallet/account workflow.
-- Double-entry ledger architecture.
+- Ledger posting model with transfer, reversal, and production double-entry
+  hardening path.
 - Transfer, reversal, risk-hold, and admin-release flows.
 - OTP challenge and trusted-device workflows.
 - Notification outbox model.
@@ -117,7 +118,9 @@ and documentation they can adapt into their own approved product.
 
 ## Suggested Gumroad Description
 
-OpenBank NG is a fullstack Nigerian banking and wallet source-code platform for founders, agencies, developers, cooperatives, and licensed operators.
+OpenBank NG is a Nigerian banking and wallet infrastructure source-code
+foundation for founders, agencies, developers, cooperatives, and licensed
+operators.
 
 It includes a customer banking app, admin operations dashboard, backend API, shared banking domain package, PostgreSQL-compatible schema, NGN/kobo money handling, KYC-ready fields, ledger architecture, transfer risk controls, notification workflow, audit boundaries, and buyer-ready documentation.
 

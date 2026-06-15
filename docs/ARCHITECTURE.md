@@ -2,7 +2,10 @@
 
 ## Architecture Goal
 
-OpenBank NG is a fullstack Nigerian banking and wallet platform built as a commercial source-code product. The architecture separates customer experience, admin operations, banking domain logic, provider adapters, and shared validation.
+OpenBank NG is a Nigerian banking and wallet infrastructure foundation built as
+a commercial source-code product. The architecture separates customer
+experience, admin operations, banking domain logic, provider adapters, and
+shared validation.
 
 ## Recommended Stack
 
@@ -52,11 +55,16 @@ The implementation can support equivalent stacks, but buyer-facing documentation
 
 ### Ledger
 
-The ledger is the heart of the system.
+The ledger is the heart of the financial workflow. The current implementation
+posts customer account ledger entries, balance-after values, idempotent
+transfer records, and reversal entries. A production buyer should harden this
+into a true double-entry accounting engine before live regulated use.
 
 Rules:
 
-- Every financial event creates balanced debit/credit entries.
+- Every financial event must be traceable to immutable ledger entries.
+- Production double-entry posting must balance customer, settlement, fee,
+  pending, and clearing accounts.
 - Money amounts are stored as integer kobo.
 - Ledger entries are immutable after posting.
 - Corrections use reversal entries.
@@ -171,4 +179,9 @@ Audit logs are required for:
 
 ## Completion Definition
 
-The platform is not complete until customer app, admin app, backend API, database schema, docs, demo data, tests, and release audit all exist and pass the commercial checklist.
+The product is buyer-review ready when the customer app, admin app, backend API,
+database schema, docs, demo data, tests, and release audit all exist and pass the
+commercial checklist. It is not live-production ready until licensed providers,
+real auth, durable storage, production double-entry ledger enforcement,
+reconciliation, security review, and regulatory approvals are completed by the
+buyer.

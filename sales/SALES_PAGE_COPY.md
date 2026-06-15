@@ -2,7 +2,7 @@
 
 ## Headline
 
-OpenBank NG - Complete Fullstack Banking & Wallet Platform for Nigeria
+OpenBank NG - Nigerian Banking & Wallet Infrastructure Foundation
 
 ## Subheadline
 
@@ -14,7 +14,8 @@ Most fintech templates are only beautiful screens. Real fintech products need le
 
 ## Product Promise
 
-OpenBank NG gives you a complete source-code foundation for building Nigerian wallet, neobank, cooperative finance, agency banking, and payment products.
+OpenBank NG gives you a serious source-code foundation for building Nigerian
+wallet, neobank, cooperative finance, agency banking, and payment products.
 
 ## Why Not Just Use Paystack?
 
@@ -37,7 +38,8 @@ rails.
 - Admin operations dashboard
 - Backend API
 - PostgreSQL-ready data model
-- Double-entry ledger architecture
+- Ledger posting model with transfer, reversal, and production double-entry
+  hardening path
 - NGN/kobo money handling
 - Nigerian bank-code support
 - BVN/NIN-ready KYC workflow

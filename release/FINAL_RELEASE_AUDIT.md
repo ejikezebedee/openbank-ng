@@ -23,6 +23,14 @@ Status: buyer-review ready, pending MD approval for public sale or repository vi
 - Re-ran automated tests after the commercial documentation update: passed.
 - Re-ran buyer-facing cleanup scan for old low prices and internal workspace references: passed.
 
+## 2026-06-14 Product Integrity Addendum
+
+- Added `docs/PHASE-013-COMMERCIAL-PRODUCT-INTEGRITY-AUDIT.md`.
+- Corrected the headline positioning from "complete fullstack banking and wallet platform" to "Nigerian banking and wallet infrastructure foundation."
+- Corrected current ledger claims from "double-entry ledger" to "ledger posting model with production double-entry hardening path."
+- Documented implemented proof points: API service, customer/admin app shells, PostgreSQL schema, KYC workflow, account controls, transfer idempotency, risk holds, admin release/reject, reversal entries, audit events, notifications, and buyer documentation.
+- Documented production gaps: licensing, providers, durable storage, true double-entry enforcement, reconciliation, webhook security, dispute/refund case management, monitoring, security review, and go-live approval.
+
 ## Commercial Cleanup
 
 Checked:
@@ -67,6 +75,7 @@ Included:
 - Marketplace product cover image.
 - Paystack differentiation brief.
 - Root proprietary commercial source license notice.
+- Phase 13 commercial product integrity audit.
 
 ## Remaining Approval Items
 
@@ -85,8 +94,14 @@ These items require MD/business approval before public sale:
 
 ## Production Caveat
 
-OpenBank NG is a source-code platform. It must not be represented as a licensed bank, regulated payment processor, legal opinion, compliance certification, or production security certification.
+OpenBank NG is a source-code infrastructure foundation. It must not be
+represented as a licensed bank, regulated payment processor, legal opinion,
+compliance certification, production security certification, or immediate live
+replacement for Paystack.
 
 ## Audit Result
 
-Phase 11 release audit result: passed for private GitHub buyer evaluation, marketplace listing review, controlled buyer-fulfillment planning, commercial decision review, and product-image readiness. Public sale and buyer access remain gated by MD approval.
+Phase 13 release audit result: passed for controlled private GitHub buyer
+evaluation, marketplace listing review, controlled buyer-fulfillment planning,
+commercial decision review, product-image readiness, and product-integrity
+positioning. Public sale and buyer access remain gated by MD approval.
