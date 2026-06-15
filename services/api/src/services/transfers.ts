@@ -11,7 +11,7 @@ import { appendAuditEvent } from "./audit.js";
 import { getAccount, postCredit, postDebit } from "./ledger.js";
 import { queueNotification } from "./notifications.js";
 import { requirePermission } from "./rbac.js";
-import { assessTransferRisk } from "./security.js";
+import { assessTransferRisk, consumeOtpChallenge } from "./security.js";
 import { inMemoryUnitOfWork } from "../repositories/memoryRepositories.js";
 
 function makeReference(): string {
@@ -96,9 +96,14 @@ function createTransferInsideTransaction(instruction: TransferInstruction): Tran
     transfer.riskLevel = risk.level;
     transfer.riskReasons = risk.reasons;
 
-    if (risk.requiresManualReview) {
+    if (risk.reasons.includes("otp_not_verified") || risk.requiresManualReview) {
       transfer.status = "requires_review";
-      transfer.failureReason = "Transfer is held for security review.";
+      transfer.failureReason = risk.reasons.includes("otp_not_verified")
+        ? "Transfer requires a verified, unconsumed OTP challenge."
+        : "Transfer is held for security review.";
+      if (!risk.reasons.includes("otp_not_verified")) {
+        consumeOtpChallenge(instruction.otpChallengeId);
+      }
       appendAuditEvent({
         actorId: account.customerId,
         actorRole: "customer",
@@ -123,6 +128,7 @@ function createTransferInsideTransaction(instruction: TransferInstruction): Tran
     }
 
     postDebit(account, transfer.id, instruction.amountKobo, instruction.narration || "OpenBank NG transfer");
+    consumeOtpChallenge(instruction.otpChallengeId);
     transfer.status = "successful";
     transfer.completedAt = new Date().toISOString();
     appendAuditEvent({

@@ -76,6 +76,7 @@ export function verifyOtpChallenge(challengeId: string, code: string, customerId
   if (
     !challenge ||
     (customerId && challenge.customerId !== customerId) ||
+    challenge.consumedAt ||
     challenge.code !== code ||
     new Date(challenge.expiresAt).getTime() < Date.now()
   ) {
@@ -109,8 +110,11 @@ export function assessTransferRisk(instruction: TransferInstruction): TransferRi
         (challenge) =>
           challenge.id === instruction.otpChallengeId &&
           challenge.customerId === account?.customerId &&
+          challenge.purpose === "transfer" &&
           challenge.targetId === instruction.sourceAccountId &&
-          challenge.verified,
+          challenge.verified &&
+          !challenge.consumedAt &&
+          new Date(challenge.expiresAt).getTime() >= Date.now(),
       )
     : undefined;
 
@@ -156,7 +160,19 @@ export function assessTransferRisk(instruction: TransferInstruction): TransferRi
   };
 }
 
-function redactOtpChallenge<T extends { code: string }>(challenge: T): Omit<T, "code"> {
-  const { code: _code, ...safeChallenge } = challenge;
+export function consumeOtpChallenge(challengeId: string | undefined): void {
+  if (!challengeId) {
+    return;
+  }
+
+  const challenge = store.otpChallenges.find((entry) => entry.id === challengeId);
+
+  if (challenge && challenge.verified && !challenge.consumedAt) {
+    challenge.consumedAt = new Date().toISOString();
+  }
+}
+
+function redactOtpChallenge<T extends { code: string; consumedAt?: string }>(challenge: T): Omit<T, "code" | "consumedAt"> {
+  const { code: _code, consumedAt: _consumedAt, ...safeChallenge } = challenge;
   return safeChallenge;
 }

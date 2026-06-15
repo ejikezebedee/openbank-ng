@@ -45,7 +45,11 @@ export async function registerTransferRoutes(app: FastifyInstance) {
       const statusCode = transfer.status === "failed" ? 409 : 201;
       return reply.code(statusCode).send({ data: transfer });
     } catch (error) {
-      return reply.code(401).send({ error: "CUSTOMER_AUTH_REQUIRED", message: (error as Error).message });
+      const message = (error as Error).message;
+      const isAuthFailure = /session|Customer session/i.test(message);
+      return reply
+        .code(isAuthFailure ? 401 : 409)
+        .send({ error: isAuthFailure ? "CUSTOMER_AUTH_REQUIRED" : "TRANSFER_NOT_ACCEPTED", message });
     }
   });
 }

@@ -10,6 +10,11 @@ const loginSchema = z.object({
   password: z.string().min(8),
 });
 
+function redactAdmin(admin: (typeof store.adminUsers)[number]) {
+  const { passwordHash: _passwordHash, ...safeAdmin } = admin;
+  return safeAdmin;
+}
+
 export async function registerAuthRoutes(app: FastifyInstance) {
   app.post("/v1/auth/customer/login", async (request, reply) => {
     const parsed = loginSchema.safeParse(request.body);
@@ -70,7 +75,7 @@ export async function registerAuthRoutes(app: FastifyInstance) {
 
     return {
       data: {
-        admin,
+        admin: redactAdmin(admin),
         session: {
           tokenType: "Bearer",
           accessToken: createSessionToken({ kind: "admin", adminId: admin.id, role: admin.role }),

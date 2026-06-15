@@ -50,8 +50,10 @@ test("rejects invalid passwords and protects admin read routes", async () => {
     payload: { email: "ops@openbankng.example", password: "OpenBankAdmin!2026" },
   });
   const body = login.json<{ data: { session: { accessToken: string } } }>();
+  const adminLoginBody = login.json<{ data: { admin: { passwordHash?: string }; session: { accessToken: string } } }>();
 
   assert.equal(login.statusCode, 200);
+  assert.equal(adminLoginBody.data.admin.passwordHash, undefined);
   assert.match(body.data.session.accessToken, /^sandbox\./);
 
   const authenticatedAdminRead = await app.inject({
@@ -61,6 +63,16 @@ test("rejects invalid passwords and protects admin read routes", async () => {
   });
 
   assert.equal(authenticatedAdminRead.statusCode, 200);
+
+  const adminUsers = await app.inject({
+    method: "GET",
+    url: "/v1/admin/users",
+    headers: { authorization: `Bearer ${body.data.session.accessToken}` },
+  });
+  const adminUsersBody = adminUsers.json<{ data: Array<{ passwordHash?: string }> }>();
+
+  assert.equal(adminUsers.statusCode, 200);
+  assert.equal(adminUsersBody.data.some((admin) => admin.passwordHash), false);
   await app.close();
 });
 
@@ -122,7 +134,7 @@ test("protects customer and transfer read routes with bearer sessions", async ()
   await app.close();
 });
 
-test("redacts OTP codes and requires the owning customer session to verify", async () => {
+test("redacts OTP internals and requires the owning customer session to verify", async () => {
   const app = await buildTestApp();
 
   const customerLogin = await app.inject({
@@ -139,11 +151,12 @@ test("redacts OTP codes and requires the owning customer session to verify", asy
     headers: { authorization },
     payload: { purpose: "transfer", targetId: "acct_001" },
   });
-  const challengeBody = challengeResponse.json<{ data: { id: string; code?: string } }>();
+  const challengeBody = challengeResponse.json<{ data: { id: string; code?: string; consumedAt?: string } }>();
   const storedChallenge = store.otpChallenges.find((challenge) => challenge.id === challengeBody.data.id);
 
   assert.equal(challengeResponse.statusCode, 201);
   assert.equal(challengeBody.data.code, undefined);
+  assert.equal(challengeBody.data.consumedAt, undefined);
   assert.match(storedChallenge?.code ?? "", /^\d{6}$/);
 
   const rejectedVerification = await app.inject({
@@ -161,11 +174,90 @@ test("redacts OTP codes and requires the owning customer session to verify", asy
     headers: { authorization },
     payload: { code: storedChallenge?.code },
   });
-  const verifiedBody = verifiedResponse.json<{ data: { id: string; verified: boolean; code?: string } }>();
+  const verifiedBody = verifiedResponse.json<{ data: { id: string; verified: boolean; code?: string; consumedAt?: string } }>();
 
   assert.equal(verifiedResponse.statusCode, 200);
   assert.equal(verifiedBody.data.verified, true);
   assert.equal(verifiedBody.data.code, undefined);
+  assert.equal(verifiedBody.data.consumedAt, undefined);
+  await app.close();
+});
+
+test("prevents a verified OTP from approving more than one transfer", async () => {
+  const app = await buildTestApp();
+
+  const customerLogin = await app.inject({
+    method: "POST",
+    url: "/v1/auth/customer/login",
+    payload: { email: "adaeze@example.com", password: "OpenBankDemo!2026" },
+  });
+  const customerBody = customerLogin.json<{ data: { session: { accessToken: string } } }>();
+  const customerAuth = `Bearer ${customerBody.data.session.accessToken}`;
+
+  const challengeResponse = await app.inject({
+    method: "POST",
+    url: "/v1/security/otp-challenges",
+    headers: { authorization: customerAuth },
+    payload: { purpose: "transfer", targetId: "acct_001" },
+  });
+  const challengeBody = challengeResponse.json<{ data: { id: string } }>();
+  const storedChallenge = store.otpChallenges.find((entry) => entry.id === challengeBody.data.id);
+
+  const verifiedResponse = await app.inject({
+    method: "POST",
+    url: `/v1/security/otp-challenges/${challengeBody.data.id}/verify`,
+    headers: { authorization: customerAuth },
+    payload: { code: storedChallenge?.code },
+  });
+
+  assert.equal(verifiedResponse.statusCode, 200);
+
+  const firstTransfer = await app.inject({
+    method: "POST",
+    url: "/v1/transfers",
+    headers: { authorization: customerAuth },
+    payload: {
+      sourceAccountId: "acct_001",
+      amountKobo: 16_500,
+      beneficiaryName: "OTP Reuse Guard One",
+      beneficiaryAccountNumber: "0123456789",
+      beneficiaryBankCode: "000027",
+      narration: "OTP reuse guard one",
+      channel: "nip_mock",
+      idempotencyKey: `route-otp-once-${Date.now()}`,
+      customerDeviceId: "dev_001",
+      otpChallengeId: challengeBody.data.id,
+    },
+  });
+
+  assert.equal(firstTransfer.statusCode, 201);
+  assert.ok(store.otpChallenges.find((entry) => entry.id === challengeBody.data.id)?.consumedAt);
+
+  const secondTransfer = await app.inject({
+    method: "POST",
+    url: "/v1/transfers",
+    headers: { authorization: customerAuth },
+    payload: {
+      sourceAccountId: "acct_001",
+      amountKobo: 17_500,
+      beneficiaryName: "OTP Reuse Guard Two",
+      beneficiaryAccountNumber: "0123456789",
+      beneficiaryBankCode: "000027",
+      narration: "OTP reuse guard two",
+      channel: "nip_mock",
+      idempotencyKey: `route-otp-reuse-${Date.now()}`,
+      customerDeviceId: "dev_001",
+      otpChallengeId: challengeBody.data.id,
+    },
+  });
+  const secondTransferBody = secondTransfer.json<{
+    data: { status: string; failureReason?: string; riskReasons: string[] };
+  }>();
+
+  assert.equal(secondTransfer.statusCode, 201);
+  assert.equal(secondTransferBody.data.status, "requires_review");
+  assert.equal(secondTransferBody.data.failureReason, "Transfer requires a verified, unconsumed OTP challenge.");
+  assert.ok(secondTransferBody.data.riskReasons.includes("otp_not_verified"));
   await app.close();
 });
 
@@ -269,5 +361,71 @@ test("smokes transfer review queue release and rejection through admin bearer au
   assert.equal(rejectedBody.data.status, "failed");
   assert.equal(rejectedBody.data.failureReason, "Route smoke rejection coverage.");
   assert.equal(rejectedBody.data.reviewedBy, "adm_001");
+  await app.close();
+});
+
+test("returns conflict instead of auth failure for transfer idempotency mismatch", async () => {
+  const app = await buildTestApp();
+
+  const customerLogin = await app.inject({
+    method: "POST",
+    url: "/v1/auth/customer/login",
+    payload: { email: "adaeze@example.com", password: "OpenBankDemo!2026" },
+  });
+  const customerBody = customerLogin.json<{ data: { session: { accessToken: string } } }>();
+  const customerAuth = `Bearer ${customerBody.data.session.accessToken}`;
+
+  const createVerifiedOtp = async () => {
+    const challenge = await app.inject({
+      method: "POST",
+      url: "/v1/security/otp-challenges",
+      headers: { authorization: customerAuth },
+      payload: { purpose: "transfer", targetId: "acct_001" },
+    });
+    const challengeBody = challenge.json<{ data: { id: string } }>();
+    const storedChallenge = store.otpChallenges.find((entry) => entry.id === challengeBody.data.id);
+    await app.inject({
+      method: "POST",
+      url: `/v1/security/otp-challenges/${challengeBody.data.id}/verify`,
+      headers: { authorization: customerAuth },
+      payload: { code: storedChallenge?.code },
+    });
+    return challengeBody.data.id;
+  };
+
+  const idempotencyKey = `route-idempotency-${Date.now()}`;
+  const basePayload = {
+    sourceAccountId: "acct_001",
+    amountKobo: 14_500,
+    beneficiaryName: "Route Idempotency",
+    beneficiaryAccountNumber: "0123456789",
+    beneficiaryBankCode: "000027",
+    narration: "Route idempotency test",
+    channel: "nip_mock",
+    idempotencyKey,
+    customerDeviceId: "dev_001",
+    otpChallengeId: await createVerifiedOtp(),
+  };
+
+  const firstTransfer = await app.inject({
+    method: "POST",
+    url: "/v1/transfers",
+    headers: { authorization: customerAuth },
+    payload: basePayload,
+  });
+
+  assert.equal(firstTransfer.statusCode, 201);
+
+  const mismatchedTransfer = await app.inject({
+    method: "POST",
+    url: "/v1/transfers",
+    headers: { authorization: customerAuth },
+    payload: { ...basePayload, amountKobo: 15_500, otpChallengeId: await createVerifiedOtp() },
+  });
+  const mismatchBody = mismatchedTransfer.json<{ error: string; message: string }>();
+
+  assert.equal(mismatchedTransfer.statusCode, 409);
+  assert.equal(mismatchBody.error, "TRANSFER_NOT_ACCEPTED");
+  assert.match(mismatchBody.message, /Idempotency key has already been used/);
   await app.close();
 });

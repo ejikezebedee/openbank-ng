@@ -21,11 +21,15 @@ function getAdminActorId(request: { headers: Record<string, string | string[] | 
   return requireAdminSession(request.headers.authorization as string | undefined).adminId;
 }
 
+function redactAdminUsers() {
+  return store.adminUsers.map(({ passwordHash: _passwordHash, ...admin }) => admin);
+}
+
 export async function registerAdminRoutes(app: FastifyInstance) {
   app.get("/v1/admin/users", async (request, reply) => {
     try {
       requirePermission(getAdminActorId(request), "customers:read");
-      return { data: store.adminUsers };
+      return { data: redactAdminUsers() };
     } catch (error) {
       return reply.code(403).send({ error: "ADMIN_OPERATION_DENIED", message: (error as Error).message });
     }

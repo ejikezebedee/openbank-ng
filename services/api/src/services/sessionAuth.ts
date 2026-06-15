@@ -1,8 +1,22 @@
-import { createHmac } from "node:crypto";
+import { createHmac, timingSafeEqual } from "node:crypto";
 import type { AdminRole } from "@openbank-ng/shared";
 import { store } from "../data/store.js";
 
-const sandboxSigningSecret = process.env.OPENBANK_SANDBOX_SESSION_SECRET || "replace-this-sandbox-session-secret";
+const defaultSandboxSigningSecret = "replace-this-sandbox-session-secret";
+
+export function shouldBlockDefaultSandboxSigningSecret(nodeEnv: string | undefined, secret: string): boolean {
+  return nodeEnv === "production" && secret === defaultSandboxSigningSecret;
+}
+
+function getSandboxSigningSecret(): string {
+  const secret = process.env.OPENBANK_SANDBOX_SESSION_SECRET || defaultSandboxSigningSecret;
+
+  if (shouldBlockDefaultSandboxSigningSecret(process.env.NODE_ENV, secret)) {
+    throw new Error("OPENBANK_SANDBOX_SESSION_SECRET must be set outside local sandbox mode.");
+  }
+
+  return secret;
+}
 
 export type SessionPrincipal =
   | { kind: "customer"; customerId: string; userId: string; expiresAt: number }
@@ -16,7 +30,13 @@ function base64Url(input: string): string {
 }
 
 function sign(payload: string): string {
-  return createHmac("sha256", sandboxSigningSecret).update(payload).digest("base64url");
+  return createHmac("sha256", getSandboxSigningSecret()).update(payload).digest("base64url");
+}
+
+function signaturesMatch(actual: string, expected: string): boolean {
+  const actualBuffer = Buffer.from(actual);
+  const expectedBuffer = Buffer.from(expected);
+  return actualBuffer.length === expectedBuffer.length && timingSafeEqual(actualBuffer, expectedBuffer);
 }
 
 export function createSessionToken(principal: SessionSubject, expiresInSeconds = 900): string {
@@ -29,7 +49,7 @@ export function verifySessionToken(authorization: string | undefined): SessionPr
   const token = authorization?.startsWith("Bearer ") ? authorization.slice("Bearer ".length) : "";
   const [, encodedPayload, signature] = token.split(".");
 
-  if (!encodedPayload || !signature || sign(encodedPayload) !== signature) {
+  if (!encodedPayload || !signature || !signaturesMatch(signature, sign(encodedPayload))) {
     throw new Error("Session token is missing or invalid.");
   }
 

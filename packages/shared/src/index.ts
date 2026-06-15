@@ -259,6 +259,7 @@ export interface OtpChallenge {
   expiresAt: string;
   createdAt: string;
   verifiedAt?: string;
+  consumedAt?: string;
 }
 
 export interface NotificationMessage {

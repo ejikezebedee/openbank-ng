@@ -95,6 +95,43 @@ test("rejects idempotency key reuse for different transfer requests", () => {
   );
 });
 
+test("consumes verified OTP challenges after an accepted transfer attempt", () => {
+  const otpChallengeId = createVerifiedTransferOtp();
+  const firstTransfer = createTransfer({
+    sourceAccountId: "acct_001",
+    amountKobo: 90_000,
+    beneficiaryName: "OTP Consumption Beneficiary",
+    beneficiaryAccountNumber: "0123456789",
+    beneficiaryBankCode: "000027",
+    narration: "OTP consumption test",
+    channel: "nip_mock",
+    idempotencyKey: "automated-test-key-otp-consume-0006",
+    customerDeviceId: "dev_001",
+    otpChallengeId,
+  });
+  const consumedChallenge = store.otpChallenges.find((challenge) => challenge.id === otpChallengeId);
+
+  assert.equal(firstTransfer.status, "successful");
+  assert.ok(consumedChallenge?.consumedAt);
+
+  const secondTransfer = createTransfer({
+    sourceAccountId: "acct_001",
+    amountKobo: 91_000,
+    beneficiaryName: "OTP Reuse Beneficiary",
+    beneficiaryAccountNumber: "0123456789",
+    beneficiaryBankCode: "000027",
+    narration: "OTP reuse test",
+    channel: "nip_mock",
+    idempotencyKey: "automated-test-key-otp-reuse-0007",
+    customerDeviceId: "dev_001",
+    otpChallengeId,
+  });
+
+  assert.equal(secondTransfer.status, "requires_review");
+  assert.equal(secondTransfer.failureReason, "Transfer requires a verified, unconsumed OTP challenge.");
+  assert.ok(secondTransfer.riskReasons.includes("otp_not_verified"));
+});
+
 test("does not release held transfers while the source account is frozen", () => {
   const account = store.accounts.find((entry) => entry.id === "acct_001");
   assert.ok(account);

@@ -27,7 +27,7 @@ Phase 5 adds the controls needed before a banking platform can be treated as mor
 
 ## Provider Replacement Points
 
-Sandbox OTP challenges generate six-digit codes and API responses redact the code. Production buyers must replace sandbox delivery with a licensed SMS, email, push, or authenticator provider. Notification delivery is intentionally queued in memory for now; production buyers should connect a worker and durable queue.
+Sandbox OTP challenges generate six-digit codes, API responses redact the code, and accepted transfer attempts consume verified OTP challenges so they cannot be reused for another transfer. Production buyers must replace sandbox delivery with a licensed SMS, email, push, or authenticator provider. Notification delivery is intentionally queued in memory for now; production buyers should connect a worker and durable queue.
 
 Recommended production adapters:
 

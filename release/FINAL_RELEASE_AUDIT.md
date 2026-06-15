@@ -10,7 +10,7 @@ Status: buyer-readiness closure passed for internal review. Public sale and buye
 
 - Build verification: passed.
 - Automated tests: passed.
-- Automated API/service coverage: customer/admin auth boundaries, protected admin/customer read routes, statement generation, notification listing, OTP challenge redaction and verification, trusted device, idempotent low-risk transfer, high-risk transfer hold, admin review queue, admin release/reject routes, funding intent, payout dispatch, reconciliation summary, frozen-account release protection, reversal ledger entry, and idempotency mismatch rejection.
+- Automated API/service coverage: customer/admin auth boundaries, protected admin/customer read routes, statement generation, notification listing, OTP challenge redaction and verification, one-use OTP transfer approval, trusted device, idempotent low-risk transfer, high-risk transfer hold, admin review queue, admin release/reject routes, funding intent, payout dispatch, reconciliation summary, frozen-account release protection, reversal ledger entry, production sandbox-secret guard, and idempotency mismatch rejection.
 - Commercial cleanup scan: passed.
 - Git status after Phase 7 push: must be clean.
 
@@ -68,6 +68,18 @@ Status: buyer-readiness closure passed for internal review. Public sale and buye
 - Confirmed fresh unpack verification passes with `npm install --include=dev`, `npm run build`, `npm run lint`, and `npm test`.
 - Updated buyer setup and fulfillment documentation to explicitly use `npm install --include=dev` so TypeScript and test tooling are present for verification.
 - `npm audit --audit-level=moderate` reports 2 moderate advisories through the Next.js/PostCSS dependency chain. npm suggests a breaking forced remediation path, so this is recorded as a dependency-hardening item rather than auto-forced during buyer package validation.
+
+## 2026-06-15 Code Audit Bug-Fix Addendum
+
+- Fixed OTP lifecycle bug: verified transfer OTP challenges are consumed after accepted transfer attempts and cannot be reused for later transfers.
+- Hardened OTP response redaction so API responses exclude both OTP codes and consumption internals.
+- Fixed API response exposure bug: admin login and admin-user listing responses no longer return password hashes.
+- Fixed route error classification: idempotency mismatch and transfer business conflicts now return transfer conflict responses instead of customer-auth failures.
+- Added production guard for sandbox session signing: `OPENBANK_SANDBOX_SESSION_SECRET` must be set when `NODE_ENV=production`.
+- Added API/service regression tests for OTP one-use transfer approval, OTP internals redaction, admin password-hash redaction, production sandbox-secret guard, and transfer idempotency conflict response.
+- Root `npm run lint` and `npm test` now build the shared package first so fresh buyer checkouts do not depend on stale generated type output.
+- DeepSeek second-review lane completed for the audit fixes; actionable feedback was applied before package refresh.
+- Rebuilt the buyer ZIP and verified the fresh unpack with `npm install --include=dev`, `npm run build`, `npm run lint`, and `npm test`.
 
 ## Commercial Cleanup
 

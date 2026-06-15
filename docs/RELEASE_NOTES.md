@@ -25,7 +25,8 @@ OpenBank NG is a Nigerian banking and wallet infrastructure foundation.
 
 - Build passes.
 - Automated tests pass.
-- Automated tests cover customer/admin auth boundaries, protected customer/admin read routes, statements, notification listing, OTP redaction and verification, device trust, transfer idempotency, transfer risk hold, admin review release/rejection, funding/payout provider workflow records, reconciliation summary protection, frozen-account release protection, reversal ledger entries, and selected service behavior.
+- Automated tests cover customer/admin auth boundaries, protected customer/admin read routes, statements, notification listing, OTP internal redaction and verification, OTP one-use transfer approval, device trust, transfer idempotency, transfer risk hold, admin review release/rejection, funding/payout provider workflow records, reconciliation summary protection, frozen-account release protection, reversal ledger entries, and selected service behavior.
+- Latest audit hardening consumes verified transfer OTP challenges after accepted transfer attempts, keeps OTP internals out of API responses, redacts admin password hashes from API responses, blocks the default sandbox session secret in production mode, and returns transfer conflicts separately from auth failures.
 - Buyer-facing documentation uses portable paths and states the commercial compliance boundary.
 - Marketplace listing materials state the software-only boundary and public-sale approval gate.
 - Buyer fulfillment materials state the access, support, and compliance boundaries.

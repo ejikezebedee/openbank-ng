@@ -61,6 +61,8 @@ The sandbox seed data includes:
 
 Sandbox passwords are hashed in the seed store and sandbox sessions are signed bearer tokens. Production buyers must still connect a hardened identity provider, MFA, password/PIN policy, and secret rotation before live use.
 
+When `NODE_ENV=production`, set `OPENBANK_SANDBOX_SESSION_SECRET` before starting the API. The default sandbox signing secret is blocked outside local sandbox mode.
+
 ## First Verification
 
 Run:

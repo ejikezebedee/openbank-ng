@@ -107,7 +107,7 @@ Body:
 }
 ```
 
-Requires a customer bearer token. Sandbox response includes a challenge ID but never returns the OTP code. Production buyers must deliver OTP codes through an approved provider.
+Requires a customer bearer token. Sandbox response includes a challenge ID but never returns the OTP code. Accepted transfer attempts consume verified transfer OTP challenges so they cannot be reused. Production buyers must deliver OTP codes through an approved provider.
 
 ### `POST /v1/security/otp-challenges/:challengeId/verify`
 

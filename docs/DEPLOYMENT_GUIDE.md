@@ -36,6 +36,7 @@ Required classes of configuration:
 - Database URL.
 - Redis URL.
 - JWT secrets.
+- `OPENBANK_SANDBOX_SESSION_SECRET` while the sandbox bearer-session boundary is still in use.
 - Encryption key.
 - Provider credentials.
 - Webhook signing secrets.
