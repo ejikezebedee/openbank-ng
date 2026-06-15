@@ -35,6 +35,7 @@ The preview repo should show:
 - Gumroad or sales-page copy.
 - Pricing packages.
 - Support policy draft.
+- Buyer contact/support path.
 - Commercial limitations and regulated-production caveats.
 - Final release audit summary.
 - Package manifest showing what paid buyers receive.
@@ -57,6 +58,7 @@ After payment and approval, the buyer receives:
 - Full source code for the customer web app, admin web app, backend API, shared banking package, database migration, buyer documentation, and release materials.
 - Setup, troubleshooting, deployment, API, and handoff documentation.
 - Support only within the approved support scope.
+- GitHub issue-template intake for setup support and buyer questions.
 
 ## Buyer Access Gate
 
@@ -80,6 +82,8 @@ For the private paid repo:
 3. Attach the validated ZIP and `.sha256` file to the private GitHub release if GitHub release delivery is approved.
 4. Keep issues disabled or restricted unless paid support includes GitHub issue handling.
 5. Keep discussions disabled unless community support is approved.
+6. If GitHub issue support is approved, enable only the included buyer support
+   and pre-sale templates.
 
 For the preview repo:
 
@@ -95,4 +99,3 @@ For the preview repo:
 - Paid access: private GitHub invite after payment and license acceptance.
 - Release artifact: validated ZIP plus hash attached only inside the private repo.
 - Buyer access: no unpaid full-source access.
-

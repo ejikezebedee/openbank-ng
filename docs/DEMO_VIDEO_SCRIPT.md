@@ -85,12 +85,17 @@ Show:
 - Deployment guide.
 - API reference.
 - Troubleshooting.
+- Buyer support guide.
+- GitHub issue templates.
 - Release checklist.
 - Sales page copy.
 
 Narration:
 
 "The package includes buyer-facing documentation so a purchaser can evaluate, run, customize, and plan production integration."
+
+"Buyers also get a GitHub-native support path for pre-sale questions, approved
+setup support, and security routing."
 
 ### 7. Close
 

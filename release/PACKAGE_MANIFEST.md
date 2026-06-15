@@ -6,6 +6,7 @@
 - `LICENSE` - Proprietary commercial source license notice.
 - `CHANGELOG.md` - Release history.
 - `SECURITY.md` - Security policy and production warnings.
+- `SUPPORT.md` - Buyer contact and support routing.
 - `.env.example` - Portable local environment template.
 - `package.json` - Workspace scripts.
 
@@ -82,6 +83,8 @@
 - `release/BUYER_FULFILLMENT_CHECKLIST.md`
 - `release/COMMERCIAL_DECISION_RECORD.md`
 - `release/BUYER_ACCESS_SOP.md`
+- `.github/ISSUE_TEMPLATE/` - Buyer support, pre-sale, and security routing
+  templates for approved GitHub support use.
 
 ## Excluded From Buyer Package
 

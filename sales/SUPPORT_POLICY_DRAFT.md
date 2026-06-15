@@ -8,6 +8,7 @@ Draft for MD approval before public sale.
 
 Included buyer support may cover:
 
+- GitHub repository or release access clarification.
 - Download or repository access issues.
 - Package file clarification.
 - Setup guide clarification.
@@ -53,6 +54,18 @@ Ask the buyer to include:
 - Error output.
 - App or service affected.
 - Whether dependencies were freshly installed.
+
+## GitHub Intake
+
+Use `SUPPORT.md` as the public buyer support entry point.
+
+- Pre-sale or evaluation questions should use GitHub Discussions when enabled,
+  or the `Pre-sale question` issue template.
+- Paid setup support should use the private repository `Buyer support request`
+  issue template.
+- Security concerns should follow `SECURITY.md`.
+
+Disable blank public issues until the final support policy is approved.
 
 ## Escalation To Paid Work
 

@@ -103,6 +103,7 @@ See:
 - [Buyer Handoff](./docs/BUYER_HANDOFF.md)
 - [License Terms Draft](./docs/LICENSE_TERMS_DRAFT.md)
 - [Release Notes](./docs/RELEASE_NOTES.md)
+- [Buyer Support](./SUPPORT.md)
 - [GitHub Delivery](./docs/GITHUB_DELIVERY.md)
 - [GitHub Buyer Access Model](./docs/GITHUB_BUYER_ACCESS_MODEL.md)
 - [Final Release Audit](./release/FINAL_RELEASE_AUDIT.md)

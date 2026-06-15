@@ -81,6 +81,17 @@ Status: buyer-readiness closure passed for internal review. Public sale and buye
 - DeepSeek second-review lane completed for the audit fixes; actionable feedback was applied before package refresh.
 - Rebuilt the buyer ZIP and verified the fresh unpack with `npm install --include=dev`, `npm run build`, `npm run lint`, and `npm test`.
 
+## 2026-06-15 Commercialization Execution Addendum
+
+- Added root `SUPPORT.md` as the buyer contact entry point.
+- Added GitHub issue templates for approved buyer setup support and pre-sale
+  questions, with blank issues disabled and security routed to `SECURITY.md`.
+- Updated Gumroad listing copy with latest package note, support path, and
+  support exclusions.
+- Updated GitHub delivery, buyer access, release notes, demo script, support
+  policy, and package manifest so buyers know how to contact the seller from
+  GitHub after approved access.
+
 ## Commercial Cleanup
 
 Checked:

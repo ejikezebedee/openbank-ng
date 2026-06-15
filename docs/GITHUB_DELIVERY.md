@@ -33,6 +33,8 @@ requires MD approval.
   - `nodejs`
   - `postgresql`
 - Disable public issues until support policy is finalized, or use issue templates.
+- Use `SUPPORT.md` and the included issue templates for buyer contact after
+  support scope is approved.
 - Protect `main` before adding external collaborators.
 - Require pull request review before merge if a team starts contributing.
 
@@ -49,7 +51,8 @@ requires MD approval.
    `docs/BUYER_HANDOFF.md`.
 7. Direct security reviewers to `SECURITY.md`, `docs/DEPLOYMENT_GUIDE.md`, and
    `release/FINAL_RELEASE_AUDIT.md`.
-8. Remove evaluation access if the buyer does not proceed or breaches review
+8. Direct buyer contact and setup questions to `SUPPORT.md`.
+9. Remove evaluation access if the buyer does not proceed or breaches review
    terms.
 
 ## Release Tag Plan

@@ -4,6 +4,14 @@
 
 OpenBank NG is a Nigerian banking and wallet infrastructure foundation.
 
+### Current Buyer Package
+
+- Package: `openbank-ng-v0.1.0-buyer-ready-20260615.zip`
+- SHA-256: see the adjacent `.sha256` delivery file.
+- GitHub delivery target: private paid buyer repository or approved buyer fork.
+- Buyer contact path: GitHub issues/discussions using `SUPPORT.md` and the
+  included issue templates.
+
 ### Included
 
 - Customer banking web app with API-backed auth, account, transfer, statement, beneficiary, notification, device, and OTP workflow controls.
@@ -20,6 +28,8 @@ OpenBank NG is a Nigerian banking and wallet infrastructure foundation.
 - Marketplace launch checklist, buyer fulfillment checklist, commercial decision record, and buyer access SOP for public-sale and delivery readiness review.
 - Marketplace product cover image for Gumroad, GitHub, sales-page, and launch-post use.
 - Phase 13 commercial product integrity audit with implemented-vs-hardening boundary.
+- Root `SUPPORT.md` and GitHub issue templates for buyer support, pre-sale
+  questions, and security routing.
 
 ### Verification
 

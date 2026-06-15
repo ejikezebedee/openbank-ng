@@ -43,6 +43,15 @@ This is software only. It does not include a banking license, direct payment-rai
 - Audit trail boundaries.
 - Provider adapter structure for licensed integrations.
 - Setup, deployment, API, troubleshooting, handoff, demo, release, and security documentation.
+- GitHub buyer-support contact path with issue templates and support boundary
+  documentation.
+
+## Latest Package Note
+
+The current buyer package is `v0.1.0-buyer-ready`, refreshed on 2026-06-15
+after a full code audit and bug-fix pass. The release hardens OTP reuse
+protection, OTP API redaction, admin password-hash redaction, production
+session-secret validation, and transfer conflict handling.
 
 ## Ideal Buyers
 
@@ -81,6 +90,21 @@ release/                Release checklist, audit, and package manifest
 4. Run `npm run build`.
 5. Run `npm test`.
 6. Start the customer app, admin app, and API using the workspace scripts in `docs/SETUP_GUIDE.md`.
+
+## Buyer Contact And Support
+
+Buyer contact is handled through GitHub after approved access:
+
+- Pre-sale questions: GitHub discussion or `Pre-sale question` issue template.
+- Paid buyer setup support: private-repository `Buyer support request` issue
+  template.
+- Security concerns: `SECURITY.md`.
+- Custom implementation, provider integration, deployment, or production
+  hardening: separate paid scope.
+
+Support does not include legal advice, banking/payment licensing, regulated
+provider approval, live payment operations, production security certification,
+or custom development unless a separate paid agreement is approved.
 
 ## Example Buyer Workflow
 

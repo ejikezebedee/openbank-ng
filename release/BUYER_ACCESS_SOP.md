@@ -23,6 +23,8 @@ Fallback method: packaged source archive through an approved marketplace or secu
 9. Grant private repository access or deliver approved package archive.
 10. Record delivery in `release/BUYER_FULFILLMENT_CHECKLIST.md`.
 11. Ask buyer to complete first-run verification.
+12. Direct approved support questions to `SUPPORT.md` and the private
+    repository `Buyer support request` issue template.
 
 ## GitHub Access Controls
 
@@ -30,6 +32,7 @@ Fallback method: packaged source archive through an approved marketplace or secu
 - Prefer read-only collaborator access where available.
 - Remove access if payment is reversed, license is breached, or access was granted in error.
 - Do not make the repository public unless MD approves public visibility.
+- Keep blank issues disabled until MD approves public support scope.
 - For pre-sale evaluation, make clear that access is inspection-only and does
   not grant copying, redistribution, production deployment, or commercial use.
 
